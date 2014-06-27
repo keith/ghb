@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+usage() {
+  echo "Usage: gh [COMMAND] [ARGUMENTS]"
+  exit 0
+}
+
+if [[ "$#" -eq "0" ]]; then
+    usage
+fi
+
+cmd="gh-$1"
+shift
+
+if hash $cmd 2>/dev/null; then
+  eval "$cmd $@"
+else
+  echo "'$cmd' was not found in your \$PATH"
+  exit 1
+fi
