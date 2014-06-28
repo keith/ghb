@@ -1,3 +1,41 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python
 
-echo "$@"
+import json
+import netrc
+import requests
+import sys
+
+URL = "https://api.github.com/user/repos"
+NETRC_MACHINE = "api.github.com"
+
+
+def credentials():
+    n = netrc.netrc()
+    auth = n.authenticators(NETRC_MACHINE)
+    if auth is None:
+        sys.exit("Add %s to your ~/.netrc" % NETRC_MACHINE)
+
+    user = auth[0] or auth[1]
+    password = auth[2]
+
+    if user is None or password is None:
+        sys.exit("Invalid netrc entry for %s" % NETRC_MACHINE)
+
+    return user, password
+
+
+def main():
+    username, password = credentials()
+    headers = {'Accept': 'application/vnd.github.v3+json'}
+    payload = {'name': 'test'}
+    payload = json.dumps(payload)
+    r = requests.post(URL,
+                      auth=(username, password),
+                      headers=headers,
+                      data=payload)
+    print r.status_code
+    print r.json()
+
+
+if __name__ == '__main__':
+    main()
