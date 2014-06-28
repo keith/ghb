@@ -9,7 +9,7 @@ looking for executables named `gh-*` and nesting them under the `gh`
 command. This allows you to create simple single purpose scripts in any
 language.
 
-Current commands:
+## Current commands
 
 - [create](https://github.com/Keithbsmiley/gh/blob/master/gh-create),
 create github repos.
