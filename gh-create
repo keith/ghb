@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 import netrc
+import signal
+import sys
 from json import dumps
 from optparse import OptionParser
 from requests import post
-from sys import exit
 from webbrowser import open_new_tab
 
 
@@ -12,17 +13,21 @@ URL = "https://api.github.com/user/repos"
 NETRC_MACHINE = "api.github.com"
 
 
+def signal_handle(sig, frame):
+    sys.exit(0)
+
+
 def credentials():
     n = netrc.netrc()
     auth = n.authenticators(NETRC_MACHINE)
     if auth is None:
-        exit("Add %s to your ~/.netrc" % NETRC_MACHINE)
+        sys.exit("Add %s to your ~/.netrc" % NETRC_MACHINE)
 
     user = auth[0] or auth[1]
     password = auth[2]
 
     if user is None or password is None:
-        exit("Invalid netrc entry for %s" % NETRC_MACHINE)
+        sys.exit("Invalid netrc entry for %s" % NETRC_MACHINE)
 
     return user, password
 
@@ -44,6 +49,7 @@ def main(options):
         print(dumps(json, indent=2))
 
 
+signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-n", "--name", type="string", help="the name of the repo")
@@ -53,9 +59,9 @@ if __name__ == '__main__':
     parser.add_option("-w", "--wiki", action="store_true", help="enable wikis", default=False, dest="has_wiki")
     parser.add_option("--no-issues", action="store_false", help="disable issues", default=True, dest="has_issues")
     parser.add_option("--no-downloads", action="store_false", help="disable downloads", default=True, dest="has_downloads")
-    options, args = parser.parse_args()
-    if len(args) > 0 or options.name is None:
+    opts, args = parser.parse_args()
+    if len(args) > 0 or opts.name is None:
         parser.print_help()
-        exit(1)
+        sys.exit(1)
 
-    main(vars(options))
+    main(vars(opts))
