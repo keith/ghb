@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+import netrc
+import signal
+import sys
+from requests import get
+
+URL = "https://github.com/users/%s/contributions_calendar_data"
+NETRC_MACHINE = "github.com"
+
+
+def signal_handle(sig, frame):
+    sys.exit(0)
+
+
+def credentials():
+    n = netrc.netrc()
+    auth = n.authenticators(NETRC_MACHINE)
+    if auth is None:
+        sys.exit("Add %s to your ~/.netrc" % NETRC_MACHINE)
+
+    user = auth[0] or auth[1]
+    password = auth[2]
+
+    if user is None or password is None:
+        sys.exit("Invalid netrc entry for %s" % NETRC_MACHINE)
+
+    return user, password
+
+
+def pluralize(number):
+    if number == 1:
+        return ""
+    return "s"
+
+
+def main():
+    username, _ = credentials()
+    r = get(URL % username)
+    json = r.json()
+    contributions = json[-1]
+    date, number = contributions
+    print("You have %s contribution%s on %s" %
+          (number, pluralize(number), date))
+
+
+signal.signal(signal.SIGINT, signal_handle)
+if __name__ == '__main__':
+    main()
