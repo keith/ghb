@@ -2,8 +2,8 @@
 
 import signal
 import sys
-from requests import get
 from argparse import ArgumentParser
+from requests import get
 
 
 URL = "https://api.github.com/repos/%s/releases"

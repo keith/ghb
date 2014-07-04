@@ -2,9 +2,9 @@
 
 import signal
 import sys
+from argparse import ArgumentParser
 from helpers import credentials
 from json import dumps
-from optparse import OptionParser
 from requests import post
 from webbrowser import open_new_tab
 
@@ -36,17 +36,13 @@ def main(options):
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
-    parser = OptionParser()
-    parser.add_option("-n", "--name", type="string", help="the name of the repo")
-    parser.add_option("-d", "--description", type="string", help="the description of the repo")
-    parser.add_option("-u", "--url", type="string", help="the homepage for the repo", dest="homepage")
-    parser.add_option("-p", "--private", action="store_true", help="make the repo private", default=False)
-    parser.add_option("-w", "--wiki", action="store_true", help="enable wikis", default=False, dest="has_wiki")
-    parser.add_option("--no-issues", action="store_false", help="disable issues", default=True, dest="has_issues")
-    parser.add_option("--no-downloads", action="store_false", help="disable downloads", default=True, dest="has_downloads")
-    opts, args = parser.parse_args()
-    if len(args) > 0 or opts.name is None:
-        parser.print_help()
-        sys.exit(1)
-
-    main(vars(opts))
+    parser = ArgumentParser(description="Create a new GitHub repo")
+    parser.add_argument("-n", "--name", help="the name of the repo", required=True)
+    parser.add_argument("-d", "--description", help="the description of the repo")
+    parser.add_argument("-u", "--url", help="the homepage for the repo", dest="homepage")
+    parser.add_argument("-p", "--private", action="store_true", help="make the repo private", default=False)
+    parser.add_argument("-w", "--wiki", action="store_true", help="enable wikis", default=False, dest="has_wiki")
+    parser.add_argument("--no-issues", action="store_false", help="disable issues", default=True, dest="has_issues")
+    parser.add_argument("--no-downloads", action="store_false", help="disable downloads", default=True, dest="has_downloads")
+    ns = parser.parse_args()
+    main(vars(ns))
