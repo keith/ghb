@@ -56,7 +56,7 @@ def main(repo):
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
     parser = ArgumentParser(description="Download the most recent release of a repo")
-    parser.add_argument("repo", help="the user/repo")
+    parser.add_argument("-r", "--repo", help="the user/repo", required=True)
     parser.add_argument("-f", "--filename", action="store_true",
                         help="only print the filename",
                         default=False)
