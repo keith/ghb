@@ -1,0 +1,33 @@
+#compdef gh
+
+_gh() {
+  if (( CURRENT > 2 )); then
+    (( CURRENT-- ))
+    shift words
+    _call_function - _gh_${words[1]}
+    return
+  else
+    local -a _gh_subcommands
+    _gh_subcommands=(
+      'create:create a new repo'
+      'contributions:show the number of your contributions todays'
+    )
+    _describe -t commands 'gh subcommands' _gh_subcommands && ret=0
+  fi
+}
+
+_gh_create() {
+  _arguments -C \
+    {-n,--name}'[the name of the repo]' \
+    {-d,--description}'[the repo description]' \
+    {-u,--url}'[the external url]' \
+    {-p,--private}'[should the repo be private]' \
+    {-w,--wiki}'[should wikis be enabled]' \
+    '--no-issues[disable issues]' \
+    '--no-downloads[disable downloads]' \
+    && ret=0
+}
+
+_gh
+
+# vim:ft=zsh:ts=2
