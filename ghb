@@ -3,7 +3,7 @@
 set -e
 
 usage() {
-  echo "Usage: gh [COMMAND] [ARGUMENTS]"
+  echo "Usage: ghb [COMMAND] [ARGUMENTS]"
   exit 0
 }
 
@@ -11,7 +11,7 @@ if [[ "$#" -eq "0" ]]; then
     usage
 fi
 
-cmd="gh-$1"
+cmd="ghb-$1"
 shift
 
 if hash $cmd 2>/dev/null; then
