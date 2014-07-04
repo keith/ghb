@@ -1,22 +1,22 @@
-#compdef gh
+#compdef ghb
 
-_gh() {
+_ghb() {
   if (( CURRENT > 2 )); then
     (( CURRENT-- ))
     shift words
-    _call_function - _gh_${words[1]}
+    _call_function - _ghb_${words[1]}
     return
   else
-    local -a _gh_subcommands
-    _gh_subcommands=(
+    local -a _ghb_subcommands
+    _ghb_subcommands=(
       'create:create a new repo'
       'contributions:show the number of your contributions todays'
     )
-    _describe -t commands 'gh subcommands' _gh_subcommands && ret=0
+    _describe -t commands 'ghb subcommands' _ghb_subcommands && ret=0
   fi
 }
 
-_gh_create() {
+_ghb_create() {
   _arguments -C \
     {-n,--name}'[the name of the repo]' \
     {-d,--description}'[the repo description]' \
@@ -28,6 +28,6 @@ _gh_create() {
     && ret=0
 }
 
-_gh
+_ghb
 
 # vim:ft=zsh:ts=2
