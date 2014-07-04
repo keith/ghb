@@ -13,3 +13,12 @@ language.
 
 - [create](https://github.com/Keithbsmiley/gh/blob/master/gh-create),
 create github repos.
+- [contributions](https://github.com/Keithbsmiley/gh/blob/master/gh-contributions),
+view the number of contributions you've made today
+
+### Installation
+
+You can put these anywhere in your $PATH. If you'd like you can use my
+[homebrew
+formula](https://github.com/Keithbsmiley/homebrew-formulae/blob/master/Formula/gh.rb)
+to install gh as well. Note it does not manage all dependencies such as [requests](http://docs.python-requests.org/en/latest/)
