@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+import sys
+from requests import get
+
+
+URL = "https://api.github.com/repos/%s/releases"
+
+
+def extension(t):
+    if t == "zip":
+        return t
+    elif t == "x-gzip":
+        return "tar.gz"
+
+    print("Unknown extension '%s'" % t)
+    sys.exit(1)
+
+
+def main(repo):
+    r = get(URL % repo)
+    json = r.json()
+    if len(json) < 1:
+        print("No releases for %s" % repo)
+        sys.exit(1)
+
+    newest = json[0]
+    assets = newest["assets"]
+    first_asset = assets[0]
+    asset_url = first_asset["url"]
+    content_type = first_asset["content_type"].split('/')[-1]
+    headers = {"Accept": "application/octet-stream"}
+    r = get(asset_url, headers=headers, stream=True)
+    filename = "release.%s" % extension(content_type)
+    with open(filename, "wb") as f:
+        for chunk in r.iter_content(1024):
+            f.write(chunk)
+            f.flush()
+
+    print("Release saved to %s" % filename)
+
+
+if __name__ == '__main__':
+    if not len(sys.argv) == 2:
+        print("Usage: ghb download-release [USER/REPO]")
+        sys.exit(1)
+    main(sys.argv[-1])
