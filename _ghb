@@ -32,7 +32,6 @@ _ghb_create() {
 
 _ghb_download-release() {
   _arguments -C \
-    {-r,--repo}'[the repo in the format USER/REPO]' \
     {-f,--filename}'[only print the filename that is created]' \
     {-h,--help}'[print the help menu]' \
     && ret=0
