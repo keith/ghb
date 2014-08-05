@@ -12,6 +12,7 @@ _ghb() {
       'create:create a new repo'
       'contributions:show the number of your contributions todays'
       'download-release:download the newest release for a given repository'
+      'notifications:open all your unread notifications'
     )
     _describe -t commands 'ghb subcommands' _ghb_subcommands && ret=0
   fi
