@@ -12,6 +12,11 @@ allows you to create simple single purpose scripts in any language.
 create github repos.
 - [contributions](https://github.com/Keithbsmiley/ghb/blob/master/ghb-contributions),
 view the number of contributions you've made today
+- [download-release](https://github.com/Keithbsmiley/ghb/blob/master/ghb-download-release),
+download the most recent release from a repo
+- [notifications](https://github.com/Keithbsmiley/ghb/blob/master/ghb-notifications),
+open your unread notifications in the browser
+
 
 ### Installation
 
