@@ -13,6 +13,7 @@ _ghb() {
       'contributions:show the number of your contributions todays'
       'download-release:download the newest release for a given repository'
       'notifications:open all your unread notifications'
+      'unwatch:prompt to unwatch repos'
     )
     _describe -t commands 'ghb subcommands' _ghb_subcommands && ret=0
   fi
@@ -34,6 +35,14 @@ _ghb_create() {
 _ghb_download-release() {
   _arguments -C \
     {-f,--filename}'[only print the filename that is created]' \
+    {-h,--help}'[print the help menu]' \
+    && ret=0
+}
+
+_ghb_unwatch() {
+  _arguments -C \
+    {-u,--users}'[comma seperated list of valid users]' \
+    {-i,--ignored}'[comma seperated list of ignored repos]' \
     {-h,--help}'[print the help menu]' \
     && ret=0
 }
