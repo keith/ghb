@@ -55,18 +55,19 @@ def unwatch_chosen(valid_users, ignored_repos):
 
     for repo in json:
         user, name = repo_name(repo)
+        full_name = repo["full_name"]
         delete = None
         if name in ignored_repos:
             delete = True
 
         if delete is None:
             try:
-                delete = ask(repo["full_name"])
+                delete = ask(full_name)
             except KeyboardInterrupt:
                 break
 
         if delete:
-            url = UNWATCH % name
+            url = UNWATCH % full_name
             requests.delete(url, auth=(user, password))
 
 
