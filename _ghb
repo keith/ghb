@@ -14,6 +14,7 @@ _ghb() {
       'download-release:download the newest release for a given repository'
       'notifications:open all your unread notifications'
       'unwatch:prompt to unwatch repos'
+      'watch:watch a repo'
     )
     _describe -t commands 'ghb subcommands' _ghb_subcommands && ret=0
   fi
