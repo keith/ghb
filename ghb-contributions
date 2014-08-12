@@ -5,7 +5,7 @@ import sys
 from helpers import credentials
 from requests import get
 
-URL = "https://github.com/users/%s/contributions_calendar_data"
+URL = "https://github.com/users/%s/contributions"
 NETRC_MACHINE = "github.com"
 
 
