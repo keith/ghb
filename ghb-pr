@@ -3,6 +3,7 @@
 import signal
 import sys
 import os.path
+import os
 # from argparse import ArgumentParser
 # from helpers import credentials
 # from json import dumps
@@ -48,17 +49,30 @@ def remote_branch_name(branch="master"):
 
 
 def last_commit_message():
-    pass
+    message = check_output("git log --format=%B -n 1".split()).strip()
+    return commit_from_string(message)
+
+
+def commit_from_string(string):
+    values = map(str.strip, string.split("\n", 1))
+    if len(values) < 2:
+        values.append(None)
+    return values
 
 
 def pr_message():
     file_path = pr_message_file()
-    if not os.path.isfile(file_path):
-        open(file_path, "r").close()
+    title, body = last_commit_message()
+    with open(file_path, "w") as f:
+        f.write(title + "\n\n" + body + "\n")
+        f.write("\n# This will be stuff\n")
+
+    command = 'vim -c "set ft=gitcommit" %s' % file_path
+    code = os.system(command)
+    if code != 0:
+        sys.exit("Not submitting PR")
 
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
-    print current_branch_name()
-    print remote_branch_name()
-    print pr_message_file()
+    print pr_message()
