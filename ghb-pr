@@ -2,8 +2,43 @@
 
 import signal
 import sys
-from argparse import ArgumentParser
-from helpers import credentials
-from json import dumps
-from requests import post
-from webbrowser import open_new_tab
+# from argparse import ArgumentParser
+# from helpers import credentials
+# from json import dumps
+# from requests import post
+# from webbrowser import open_new_tab
+from subprocess import check_output
+
+URL = "https://api.github.com/repos/%s/%s/pulls"
+NETRC_MACHINE = "api.github.com"
+
+
+def signal_handle(sig, frame):
+    sys.exit(0)
+
+
+def current_branch_name():
+    return check_output("git symbolic-ref --short HEAD".split()).strip()
+
+
+def repo_username():
+    url_parts = origin_url().split("/")
+    return filter_empty_string(url_parts)[-2]
+
+
+def filter_empty_string(array):
+    return [a for a in array if len(a) > 0]
+
+
+def origin_url():
+    return check_output("git config --get remote.origin.url".split()).strip()
+
+
+def remote_branch_name(branch="master"):
+    return "%s:%s" % (repo_username(), branch)
+
+
+signal.signal(signal.SIGINT, signal_handle)
+if __name__ == '__main__':
+    print current_branch_name()
+    print remote_branch_name()
