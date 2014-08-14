@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+
+import signal
+import sys
+from argparse import ArgumentParser
+from helpers import credentials
+from json import dumps
+from requests import post
+from webbrowser import open_new_tab
