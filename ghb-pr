@@ -2,6 +2,7 @@
 
 import signal
 import sys
+import os.path
 # from argparse import ArgumentParser
 # from helpers import credentials
 # from json import dumps
@@ -34,11 +35,30 @@ def origin_url():
     return check_output("git config --get remote.origin.url".split()).strip()
 
 
+def git_directory():
+    return check_output("git rev-parse -q --git-dir".split()).strip()
+
+
+def pr_message_file():
+    return os.path.join(git_directory(), "PULLREQUEST_EDITMSG")
+
+
 def remote_branch_name(branch="master"):
     return "%s:%s" % (repo_username(), branch)
+
+
+def last_commit_message():
+    pass
+
+
+def pr_message():
+    file_path = pr_message_file()
+    if not os.path.isfile(file_path):
+        open(file_path, "r").close()
 
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
     print current_branch_name()
     print remote_branch_name()
+    print pr_message_file()
