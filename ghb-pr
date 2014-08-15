@@ -112,6 +112,8 @@ def submit_pr():
     username, password = credentials.credentials(NETRC_MACHINE)
     local = current_branch_name()
     remote = "master"
+    if local.split(":")[-1] == remote:
+        sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
     payload = {"title": text, "body": body, "base": remote, "head": local}
     r = requests.post(api_url,
