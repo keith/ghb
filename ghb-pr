@@ -19,7 +19,8 @@ def signal_handle(sig, frame):
 
 
 def current_branch_name():
-    return check_output("git symbolic-ref --short HEAD".split()).strip()
+    branch = check_output("git symbolic-ref --short HEAD".split()).strip()
+    return "%s:%s" % (repo_username(), branch)
 
 
 def repo_username():
@@ -49,10 +50,6 @@ def git_directory():
 
 def pr_message_file():
     return os.path.join(git_directory(), "PULLREQUEST_EDITMSG")
-
-
-def remote_branch_name(branch="master"):
-    return "%s:%s" % (repo_username(), branch)
 
 
 def last_commit_message():
@@ -97,9 +94,9 @@ def submit_pr():
     username, password = credentials.credentials(NETRC_MACHINE)
     headers = {'Accept': 'application/vnd.github.v3+json'}
     local = current_branch_name()
-    remote = remote_branch_name()
+    remote = "master"
     api_url = URL % repo_with_username()
-    payload = {"title": text, "body": body, "base": local, "head": remote}
+    payload = {"title": text, "body": body, "base": remote, "head": local}
     r = post(api_url,
              auth=(username, password),
              headers=headers,
@@ -107,8 +104,12 @@ def submit_pr():
              )
     print r
     json = r.json()
+    if r.status_code == 201:
+        open_new_tab(json["html_url"])
+    else:
+        error_message = json["errors"][0]["message"]
+        print(error_message)
     print json
-    open_new_tab(json["html_url"])
 
 
 signal.signal(signal.SIGINT, signal_handle)
