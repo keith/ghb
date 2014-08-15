@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 
+import os
+import os.path
 import signal
 import sys
-import os.path
-import os
-# from argparse import ArgumentParser
-# from helpers import credentials
-# from json import dumps
-# from requests import post
-# from webbrowser import open_new_tab
+from helpers import credentials
+from json import dumps
+from requests import post
 from subprocess import check_output
+from webbrowser import open_new_tab
 
-URL = "https://api.github.com/repos/%s/%s/pulls"
+URL = "https://api.github.com/repos/%s/pulls"
 NETRC_MACHINE = "api.github.com"
 
 
@@ -24,8 +23,16 @@ def current_branch_name():
 
 
 def repo_username():
-    url_parts = origin_url().split("/")
-    return filter_empty_string(url_parts)[-2]
+    return repo_with_username().split("/")[0]
+
+
+def repo_with_username():
+    url_parts = filter_empty_string(origin_url().split("/"))
+    username_repo = "/".join(url_parts[-2:])
+    if username_repo.endswith(".git"):
+        return username_repo[:-4]
+
+    return username_repo
 
 
 def filter_empty_string(array):
@@ -56,7 +63,7 @@ def last_commit_message():
 def commit_from_string(string):
     values = map(str.strip, string.split("\n", 1))
     if len(values) < 2:
-        values.append(None)
+        values.append("")
     return values
 
 
@@ -76,9 +83,34 @@ def pr_message():
     text = f.read()
     f.close()
 
+    lines = text.split("\n")
+    lines = filter(lambda x: not x.startswith("#"), lines)
+    text = "\n".join(lines)
+    if len(text.strip()) < 1:
+        sys.exit("Not submitting with empty message")
+
     return commit_from_string(text)
+
+
+def submit_pr():
+    text, body = pr_message()
+    username, password = credentials.credentials(NETRC_MACHINE)
+    headers = {'Accept': 'application/vnd.github.v3+json'}
+    local = current_branch_name()
+    remote = remote_branch_name()
+    api_url = URL % repo_with_username()
+    payload = {"title": text, "body": body, "base": local, "head": remote}
+    r = post(api_url,
+             auth=(username, password),
+             headers=headers,
+             data=dumps(payload),
+             )
+    print r
+    json = r.json()
+    print json
+    open_new_tab(json["html_url"])
 
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
-    print pr_message()
+    submit_pr()
