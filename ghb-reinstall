@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+brew rm ghb && brew install ghb --HEAD
