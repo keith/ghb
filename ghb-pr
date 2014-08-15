@@ -72,6 +72,12 @@ def pr_message():
     if code != 0:
         sys.exit("Not submitting PR")
 
+    f = open(file_path, "r")
+    text = f.read()
+    f.close()
+
+    return commit_from_string(text)
+
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
