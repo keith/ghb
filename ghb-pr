@@ -2,15 +2,16 @@
 
 import os
 import os.path
+import requests
 import signal
 import sys
 from helpers import credentials
 from json import dumps
-from requests import post
 from subprocess import check_output
 from webbrowser import open_new_tab
 
 URL = "https://api.github.com/repos/%s/pulls"
+EXISTING_URL = URL
 NETRC_MACHINE = "api.github.com"
 
 
@@ -98,15 +99,25 @@ def submit_pr():
     remote = "master"
     api_url = URL % repo_with_username()
     payload = {"title": text, "body": body, "base": remote, "head": local}
-    r = post(api_url,
-             auth=(username, password),
-             headers=headers,
-             data=dumps(payload),
-             )
-    print r
+    r = requests.post(api_url,
+                      auth=(username, password),
+                      headers=headers,
+                      data=dumps(payload),
+                      )
     json = r.json()
     if r.status_code == 201:
         open_new_tab(json["html_url"])
+    elif r.status_code == 422:
+        print("Opening existing PR")
+        payload = {"head": local, "base": remote}
+        r = requests.get(api_url,
+                         auth=(username,password),
+                         headers=headers,
+                         data=dumps(payload)
+                         )
+        if r.status_code == 200:
+            pr = r.json()[0]
+            open_new_tab(pr["html_url"])
     else:
         error_message = json["errors"][0]["message"]
         print(error_message)
