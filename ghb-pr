@@ -69,7 +69,8 @@ def pr_message():
     title, body = last_commit_message()
     with open(file_path, "w") as f:
         f.write(title + "\n\n" + body + "\n")
-        f.write("\n# This will be stuff\n")
+        f.write("\n# The first line will be the title of the PR")
+        f.write("\n# Anything below the first line will be the body\n")
 
     command = 'vim -c "set ft=gitcommit" %s' % file_path
     code = os.system(command)
@@ -109,7 +110,6 @@ def submit_pr():
     else:
         error_message = json["errors"][0]["message"]
         print(error_message)
-    print json
 
 
 signal.signal(signal.SIGINT, signal_handle)

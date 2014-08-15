@@ -9,10 +9,11 @@ _ghb() {
   else
     local -a _ghb_subcommands
     _ghb_subcommands=(
-      'create:create a new repo'
       'contributions:show the number of your contributions todays'
+      'create:create a new repo'
       'download-release:download the newest release for a given repository'
       'notifications:open all your unread notifications'
+      'pr:open a pull request from the current branch'
       'unwatch:prompt to unwatch repos'
       'watch:watch a repo'
     )
