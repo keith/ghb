@@ -23,4 +23,4 @@ open your unread notifications in the browser
 You can put these anywhere in your $PATH. If you'd like you can use my
 [homebrew
 formula](https://github.com/Keithbsmiley/homebrew-formulae/blob/master/Formula/ghb.rb)
-to install ghb as well. Note it does not manage all dependencies such as [requests](http://docs.python-requests.org/en/latest/)
+to install ghb as well.
