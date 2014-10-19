@@ -9,6 +9,7 @@ from requests import get
 URL = "https://github.com/users/%s/contributions"
 NETRC_MACHINE = "github.com"
 
+
 class CustomHTMLParser(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
