@@ -13,6 +13,7 @@ _ghb() {
       'create:create a new repo'
       'download-release:download the newest release for a given repository'
       'langs:Get the language breakdown for a repo'
+      'me:open your profile on GitHub'
       'notifications:open all your unread notifications'
       'pr:open a pull request from the current branch'
       'reinstall:reinstall the HEAD version of ghb'
