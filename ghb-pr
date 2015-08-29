@@ -112,11 +112,10 @@ def open_existing_pr(api_url, local, remote):
 
 
 
-def submit_pr():
+def submit_pr(remote="master"):
     text, body = pr_message()
     username, password = credentials.credentials(NETRC_MACHINE)
     local = current_branch_name()
-    remote = "master"
     if local.split(":")[-1] == remote:
         sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
@@ -138,4 +137,9 @@ def submit_pr():
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
-    submit_pr()
+    if len(sys.argv) > 2:
+        print("Usage: ghb pr [REMOTE]")
+    elif len(sys.argv) == 2:
+        submit_pr(sys.argv[1])
+    else:
+        submit_pr()
