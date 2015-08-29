@@ -30,8 +30,13 @@ def repo_username():
 
 
 def repo_with_username():
-    url_parts = filter_empty_string(origin_url().split("/"))
-    username_repo = "/".join(url_parts[-2:])
+    if "@" in origin_url():
+        url_parts = filter_empty_string(origin_url().split(":"))
+        username_repo = url_parts[-1]
+    else:
+        url_parts = filter_empty_string(origin_url().split("/"))
+        username_repo = "/".join(url_parts[-2:])
+
     if username_repo.endswith(".git"):
         return username_repo[:-4]
 
