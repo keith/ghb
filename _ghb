@@ -1,30 +1,5 @@
 #compdef ghb
 
-_ghb() {
-  if (( CURRENT > 2 )); then
-    (( CURRENT-- ))
-    shift words
-    _call_function - _ghb_${words[1]}
-    return
-  else
-    local -a _ghb_subcommands
-    _ghb_subcommands=(
-      'contributions:show the number of your contributions todays'
-      'create:create a new repo'
-      'download-release:download the newest release for a given repository'
-      'langs:get the language breakdown for a repo'
-      'ls-notifications:print out your unread notifications'
-      'me:open your profile on GitHub'
-      'notifications:open all your unread notifications'
-      'pr:open a pull request from the current branch'
-      'reinstall:reinstall the HEAD version of ghb'
-      'unwatch:prompt to unwatch repos'
-      'watch:watch a repo'
-    )
-    _describe -t commands 'ghb subcommands' _ghb_subcommands && ret=0
-  fi
-}
-
 _ghb_create() {
   _arguments -C \
     {-n,--name}'[the name of the repo]' \
@@ -53,6 +28,36 @@ _ghb_unwatch() {
     && ret=0
 }
 
-_ghb
+_ghb_pr() {
+  if [[ ${#words[@]} -eq 2 ]]; then
+    branches=($(git branch | tr -d ' *'))
+    if [[ $branches != "" ]]; then
+      _values "branch" $branches
+    fi
+  fi
+}
+
+if (( CURRENT > 2 )); then
+  (( CURRENT-- ))
+  shift words
+  _call_function - _ghb_${words[1]}
+  return
+else
+  local -a _ghb_subcommands
+  _ghb_subcommands=(
+  'contributions:show the number of your contributions todays'
+  'create:create a new repo'
+  'download-release:download the newest release for a given repository'
+  'langs:get the language breakdown for a repo'
+  'ls-notifications:print out your unread notifications'
+  'me:open your profile on GitHub'
+  'notifications:open all your unread notifications'
+  'pr:open a pull request from the current branch'
+  'reinstall:reinstall the HEAD version of ghb'
+  'unwatch:prompt to unwatch repos'
+  'watch:watch a repo'
+  )
+  _describe -t commands 'ghb subcommands' _ghb_subcommands && ret=0
+fi
 
 # vim:ft=zsh:ts=2
