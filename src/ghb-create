@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+#
+# Create new GitHub repos
+# Usage: ghb create NAME [-d/--description repo description]
+#                        [-u/--url the homepage URL]
+#                        [-p/--private make the repo private (default public)]
+#                        [-w/--wiki enable wiki (off by default)]
+#                        [--no-issues disable issues]
+#                        [--no-downloads disable downloads]
+#
 
 import signal
 import sys
@@ -37,7 +46,7 @@ def main(options):
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
     parser = ArgumentParser(description="Create a new GitHub repo")
-    parser.add_argument("-n", "--name", help="the name of the repo", required=True)
+    parser.add_argument("name", help="the name of the repo")
     parser.add_argument("-d", "--description", help="the description of the repo")
     parser.add_argument("-u", "--url", help="the homepage for the repo", dest="homepage")
     parser.add_argument("-p", "--private", action="store_true", help="make the repo private", default=False)

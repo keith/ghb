@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+#
+# Print your contributions for the current day
+# Usage: ghb contributions
+#
 
 import signal
 import sys

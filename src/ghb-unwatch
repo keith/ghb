@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+#
+# Unwatch GitHub repos (specifically userful if you accidentally opt in to
+# watching hundreds of repos)
+#
+# Usage: ghb unwatch [-u/--users valid users, never unwatch repos from]
+#                    [-i/--ignored ignored repo names, automatically unwatched]
+#
+# Note: Arguments are comma separated
+#
 
 import signal
 import sys

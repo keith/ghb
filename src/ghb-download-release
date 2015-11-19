@@ -1,10 +1,13 @@
 #!/usr/bin/env python
+#
+# Download the first asset from the newest release from a GitHub repo
+# Usage: ghb download-release USER/REPO [-f/--filename only print the filename]
+#
 
+from requests import get
+import argparse
 import signal
 import sys
-from argparse import ArgumentParser
-from requests import get
-
 
 URL = "https://api.github.com/repos/%s/releases"
 
@@ -13,14 +16,13 @@ def signal_handle(sig, frame):
     sys.exit(0)
 
 
-def extension(t):
+def extension(t, default):
     if t == "zip":
         return t
     elif t == "x-gzip":
         return "tar.gz"
-
-    print("Unknown extension '%s'" % t)
-    sys.exit(1)
+    else:
+        return default
 
 
 def print_filename(filename, only_filename):
@@ -31,20 +33,26 @@ def print_filename(filename, only_filename):
 
 
 def main(repo):
+    print "repo"
     r = get(URL % repo)
     json = r.json()
     if len(json) < 1:
         print("No releases for %s" % repo)
         sys.exit(1)
 
+    print "adsfsdaf"
     newest = json[0]
     assets = newest["assets"]
     first_asset = assets[0]
     asset_url = first_asset["url"]
+    print "here"
+    print first_asset
     content_type = first_asset["content_type"].split('/')[-1]
+    default = first_asset["name"].split(".")[-1]
     headers = {"Accept": "application/octet-stream"}
     r = get(asset_url, headers=headers, stream=True)
-    filename = "release.%s" % extension(content_type)
+    print "dfadf"
+    filename = "release.%s" % extension(content_type, default)
     with open(filename, "wb") as f:
         for chunk in r.iter_content(1024):
             f.write(chunk)
@@ -55,7 +63,8 @@ def main(repo):
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
-    parser = ArgumentParser(description="Download the most recent release of a repo")
+    parser = argparse.ArgumentParser(
+        description="Download the most recent release of a repo")
     parser.add_argument("repo", help="the user/repo")
     parser.add_argument("-f", "--filename", action="store_true",
                         help="only print the filename",

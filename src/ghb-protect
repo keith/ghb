@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-# Enable/disable Github protected branch status
-# Usage: ghb protect USER REPO BRANCH [--disable] [STATUSES...]
+# Enable/disable GitHub protected branch status
+# Usage: ghb protect USER/REPO BRANCH [--disable] [STATUSES...]
 #
 # Example: ghb protect keith ghb master travis
 # This would enable protection on master forcing the travis build to pass
@@ -17,7 +17,7 @@ from json import dumps
 from requests import patch
 
 
-URL = "https://api.github.com/repos/%s/%s/branches/%s"
+URL = "https://api.github.com/repos/%s/branches/%s"
 NETRC_MACHINE = "api.github.com"
 
 
@@ -26,7 +26,7 @@ def signal_handle(sig, frame):
 
 
 def url_from_options(options):
-    return URL % (options["user"], options["repo"], options["branch"])
+    return URL % (options["repo"], options["branch"])
 
 
 def data_for_options(options):
@@ -61,8 +61,7 @@ if __name__ == '__main__':
     parser = ArgumentParser(description="Protect/Unprotect a branch")
     parser.add_argument("--disable", help="disable protection",
                         action="store_true", default=False)
-    parser.add_argument("user", help="The name of the user")
-    parser.add_argument("repo", help="The name of the repo")
+    parser.add_argument("repo", help="the user/repo to edit")
     parser.add_argument("branch", help="The name of the branch")
     parser.add_argument("statuses", nargs="*",
                         help="The required status checks")

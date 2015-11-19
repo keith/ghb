@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+#
+# Open your unread GitHub notifications in new tabs
+# Usage: ghb notifications
+#
 
 import signal
 import sys
 from helpers import credentials
 from requests import get
 from webbrowser import open_new_tab
-
 
 URL = "https://api.github.com/notifications"
 NETRC_MACHINE = "api.github.com"

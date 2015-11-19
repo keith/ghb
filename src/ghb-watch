@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+#
+# Watch a GitHub repo
+# Usage: ghb watch user/repo
+#
 
 import re
 import requests

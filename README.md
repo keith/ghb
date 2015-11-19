@@ -1,26 +1,42 @@
 # ghb
 
-This is a small set of scripts for working with github. Unlike hub or
-gh the purpose of this is not to override `git` and add functionality
-on top of that. Instead this uses a git like method of looking for
+This is a small set of scripts for working with github. Unlike hub or gh
+the purpose of this is not to override `git` and add functionality on
+top of that. Instead this uses a git like method of looking for
 executables named `ghb-*` and nesting them under the `ghb` command. This
 allows you to create simple single purpose scripts in any language.
 
-## Current commands
+## Commands
 
-- [create](https://github.com/Keithbsmiley/ghb/blob/master/ghb-create),
-create github repos.
-- [contributions](https://github.com/Keithbsmiley/ghb/blob/master/ghb-contributions),
+- [contributions](https://github.com/keith/ghb/blob/master/src/ghb-contributions),
 view the number of contributions you've made today
-- [download-release](https://github.com/Keithbsmiley/ghb/blob/master/ghb-download-release),
+- [create](https://github.com/keith/ghb/blob/master/src/ghb-create),
+create github repos.
+- [download-release](https://github.com/keith/ghb/blob/master/src/ghb-download-release),
 download the most recent release from a repo
-- [notifications](https://github.com/Keithbsmiley/ghb/blob/master/ghb-notifications),
+- [langs](https://github.com/keith/ghb/blob/master/src/ghb-langs),
+get the language breakdown for a repo
+- [ls-notifications](https://github.com/keith/ghb/blob/master/src/ghb-ls-notifications),
+list your unread notifications
+- [me](https://github.com/keith/ghb/blob/master/src/ghb-me),
+open your GitHub profile
+- [notifications](https://github.com/keith/ghb/blob/master/src/ghb-notifications),
 open your unread notifications in the browser
+- [pr](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+open a PR from the current branch
+- [protect](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+enable/disable branch protection for a specific repo and branch
+- [unwatch](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+bulk unwatch repos
+- [watch](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+watch a repo
 
+See the header comment in each individual file for specific usage.
 
 ### Installation
 
-You can put these anywhere in your $PATH. If you'd like you can use my
-[homebrew
-formula](https://github.com/Keithbsmiley/homebrew-formulae/blob/master/Formula/ghb.rb)
-to install ghb as well.
+```
+brew install keith/formulae/ghb
+```
+
+Or put everything inside the `src` directory somewhere in your `$PATH`

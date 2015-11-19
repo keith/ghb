@@ -1,12 +1,15 @@
 #!/usr/bin/env python
+#
+# Get the language breakdown for a repo
+# Usage: ghb langs USER/REPO
+#
 
-import signal
-import sys
-from argparse import ArgumentParser
 from helpers import credentials
 from operator import itemgetter
 from requests import get
-
+import argparse
+import signal
+import sys
 
 URL = "https://api.github.com/repos/%s/languages"
 NETRC_MACHINE = "api.github.com"
@@ -42,7 +45,8 @@ def main(repo):
 
 signal.signal(signal.SIGINT, signal_handle)
 if __name__ == '__main__':
-    parser = ArgumentParser(description="Get the language breakdown for a repo")
+    parser = argparse.ArgumentParser(
+        description="Get the language breakdown for a repo")
     parser.add_argument("repo", help="the user/repo")
     ns = parser.parse_args()
     main(vars(ns)["repo"])
