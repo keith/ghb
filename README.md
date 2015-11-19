@@ -24,11 +24,11 @@ open your GitHub profile
 open your unread notifications in the browser
 - [pr](https://github.com/keith/ghb/blob/master/src/ghb-pr),
 open a PR from the current branch
-- [protect](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+- [protect](https://github.com/keith/ghb/blob/master/src/ghb-protect),
 enable/disable branch protection for a specific repo and branch
-- [unwatch](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+- [unwatch](https://github.com/keith/ghb/blob/master/src/ghb-unwatch),
 bulk unwatch repos
-- [watch](https://github.com/keith/ghb/blob/master/src/ghb-pr),
+- [watch](https://github.com/keith/ghb/blob/master/src/ghb-watch),
 watch a repo
 
 See the header comment in each individual file for specific usage.
