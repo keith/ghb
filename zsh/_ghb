@@ -45,6 +45,7 @@ if (( CURRENT > 2 )); then
 else
   local -a _ghb_subcommands
   _ghb_subcommands=(
+  'clear-comments:delete all comments on a pull request'
   'contributions:show the number of your contributions todays'
   'create:create a new repo'
   'download-release:download the newest release for a given repository'

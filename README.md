@@ -10,6 +10,8 @@ allows you to create simple single purpose scripts in any language.
 
 - [contributions](https://github.com/keith/ghb/blob/master/src/ghb-contributions),
 view the number of contributions you've made today
+- [clear-comments](https://github.com/keith/ghb/blob/master/src/ghb-clear-comments),
+delete all comments on a pull request
 - [create](https://github.com/keith/ghb/blob/master/src/ghb-create),
 create github repos.
 - [download-release](https://github.com/keith/ghb/blob/master/src/ghb-download-release),
