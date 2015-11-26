@@ -2,7 +2,6 @@
 
 _ghb_create() {
   _arguments -C \
-    {-n,--name}'[the name of the repo]' \
     {-d,--description}'[the repo description]' \
     {-u,--url}'[the external url]' \
     {-p,--private}'[should the repo be private]' \
