@@ -8,7 +8,7 @@ usage() {
 }
 
 if [[ "$#" -eq "0" ]]; then
-    usage
+  usage
 fi
 
 cmd="ghb-$1"
