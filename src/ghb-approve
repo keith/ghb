@@ -34,10 +34,11 @@ def extract_info(pr):
 
     return repo, number
 
+
 def main(pr):
     repo, number = extract_info(pr)
     user, password = credentials.credentials(NETRC_MACHINE)
-    params = {"body": ":+1:", "event": "APPROVE"}
+    params = {"event": "APPROVE"}
     headers = {"Accept": "application/vnd.github.black-cat-preview+json"}
     response = requests.post(URL % (repo, number), auth=(user, password),
                              data=json.dumps(params), headers=headers)
