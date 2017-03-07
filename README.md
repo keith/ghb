@@ -10,6 +10,8 @@ allows you to create simple single purpose scripts in any language.
 
 - [approve](https://github.com/keith/ghb/blob/master/src/ghb-approve),
 quickly approve a PR with a GitHub review
+- [assignme](https://github.com/keith/ghb/blob/master/src/ghb-assignme),
+assign yourself to a PR
 - [contributions](https://github.com/keith/ghb/blob/master/src/ghb-contributions),
 view the number of contributions you've made today
 - [clear-comments](https://github.com/keith/ghb/blob/master/src/ghb-clear-comments),
