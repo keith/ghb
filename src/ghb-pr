@@ -73,6 +73,10 @@ def last_commit_message():
     return commit_from_string(message)
 
 
+def _get_last_branch():
+    return check_output("git rev-parse --abbrev-ref @{-1}".split()).strip()
+
+
 def commit_from_string(string):
     values = map(str.strip, string.split("\n", 1))
     if len(values) < 2:
@@ -119,7 +123,10 @@ def open_existing_pr(api_url, local, remote):
         open_new_tab(pr["html_url"])
 
 
-def submit_pr(remote="master"):
+def submit_pr(remote):
+    if remote == "-":
+        remote = _get_last_branch()
+
     text, body = pr_message()
     username, password = credentials.credentials(NETRC_MACHINE)
     local = current_branch_name()
@@ -149,4 +156,4 @@ if __name__ == '__main__':
     elif len(sys.argv) == 2:
         submit_pr(sys.argv[1])
     else:
-        submit_pr()
+        submit_pr("master")
