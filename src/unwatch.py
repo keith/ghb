@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 # Unwatch GitHub repos (specifically userful if you accidentally opt in to
 # watching hundreds of repos)
@@ -9,12 +8,11 @@
 # Note: Arguments are comma separated
 #
 
-import signal
-import sys
+import webbrowser
+
 import requests
-from argparse import ArgumentParser
-from helpers import credentials
-from webbrowser import open_new_tab
+
+from .helpers import credentials
 
 WATCHING = "https://api.github.com/user/subscriptions?page=%s&per_page=100"
 UNWATCH = "https://api.github.com/repos/%s/subscription"
@@ -22,17 +20,13 @@ HTML_URL = "https://github.com/%s"
 NETRC_MACHINE = "api.github.com"
 
 
-def signal_handle(sig, frame):
-    sys.exit(0)
-
-
 def ask(repo):
     i = input("Unwatch " + repo + " y/n/o: ").lower()[0]
     if i.startswith("o"):
-        open_new_tab(HTML_URL % repo)
+        webbrowser.open_new_tab(HTML_URL % repo)
         return ask(repo)
-    else:
-        return i.startswith("y")
+
+    return i.startswith("y")
 
 
 def repo_name(repo):
@@ -45,7 +39,9 @@ def is_valid_user(repo, valid_users):
     return user not in valid_users
 
 
-def unwatch_chosen(valid_users, ignored_repos):
+def main(args):
+    valid_users = [x.lower() for x in args.users.split(",")]
+    ignored_repos = [x.lower() for x in args.ignored.split(",")]
     user, password = credentials.credentials(NETRC_MACHINE)
     json = []
     count = 1
@@ -53,7 +49,7 @@ def unwatch_chosen(valid_users, ignored_repos):
         url = WATCHING % count
         r = requests.get(url, auth=(user, password))
         j = r.json()
-        if len(j) > 0:
+        if j:
             json += j
             count += 1
         else:
@@ -78,16 +74,3 @@ def unwatch_chosen(valid_users, ignored_repos):
         if delete:
             url = UNWATCH % full_name
             requests.delete(url, auth=(user, password))
-
-
-signal.signal(signal.SIGINT, signal_handle)
-if __name__ == '__main__':
-    parser = ArgumentParser(description="Unwatch GitHub repos")
-    parser.add_argument("-u", "--users", help="comma separated valid users. Repos from these users are never unwatched", default="")
-    parser.add_argument("-i", "--ignored", help="command separated ignored repo names. Repos from this list are automatically unwatched", default="")
-    ns = parser.parse_args()
-    args = vars(ns)
-
-    users = [x.lower() for x in args["users"].split(",")]
-    ignored = [x.lower() for x in args["ignored"].split(",")]
-    unwatch_chosen(users, ignored)

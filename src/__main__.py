@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import unwatch
 from . import watch
 
 
@@ -60,6 +61,10 @@ create_parser.add_argument(
 watch_parser = subparsers.add_parser("watch", help="Watch GitHub repos")
 watch_parser.add_argument("repo", help="the user/repo to watch")
 
+unwatch_parser = subparsers.add_parser("unwatch", help="Unwatch GitHub repos")
+unwatch_parser.add_argument("-u", "--users", help="comma separated valid users. Repos from these users are never unwatched", default="")
+unwatch_parser.add_argument("-i", "--ignored", help="command separated ignored repo names. Repos from this list are automatically unwatched", default="")
+
 args = parser.parse_args()
 print(args)
 
@@ -71,6 +76,7 @@ commands = {
     "contributions": contributions.main,
     "create": create.main,
     "watch": watch.main,
+    "unwatch": unwatch.main,
 }
 
 signal.signal(signal.SIGINT, _signal_handle)
