@@ -7,6 +7,7 @@ from . import assignme
 from . import block
 from . import clear_comments
 from . import contributions
+from . import create
 
 
 def _signal_handle(sig, frame):
@@ -35,6 +36,26 @@ clear_comments_parser.add_argument("pr", help="the PR number to clear")
 contributions_parser = subparsers.add_parser(
     "contributions", help="Get your contribution count for today")
 
+create_parser = subparsers.add_parser("create",
+                                      help="Create a new GitHub repo")
+create_parser.add_argument("name", help="the name of the repo")
+create_parser.add_argument(
+    "-d", "--description", help="the description of the repo")
+create_parser.add_argument(
+    "-u", "--url", help="the homepage for the repo", dest="homepage")
+create_parser.add_argument(
+    "-p", "--private", action="store_true", help="make the repo private",
+    default=False)
+create_parser.add_argument(
+    "-w", "--wiki", action="store_true", help="enable wikis", default=False,
+    dest="has_wiki")
+create_parser.add_argument(
+    "--no-issues", action="store_false", help="disable issues", default=True,
+    dest="has_issues")
+create_parser.add_argument(
+    "--no-downloads", action="store_false", help="disable downloads",
+    default=True, dest="has_downloads")
+
 args = parser.parse_args()
 print(args)
 
@@ -44,6 +65,7 @@ commands = {
     "block": block.main,
     "clear-comments": clear_comments.main,
     "contributions": contributions.main,
+    "create": create.main,
 }
 
 signal.signal(signal.SIGINT, _signal_handle)
