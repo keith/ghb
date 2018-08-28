@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import notifications
 from . import protect
 from . import unwatch
 from . import watch
@@ -79,6 +80,8 @@ pr_parser = subparsers.add_parser("pr", help="Create a PR")
 pr_parser.add_argument("branch", help="The branch to base the PR on",
                        nargs="?", default="master")
 
+subparsers.add_parser("notifications", help="Open unread notifications")
+
 args = parser.parse_args()
 print(args)
 
@@ -89,6 +92,7 @@ commands = {
     "clear-comments": clear_comments.main,
     "contributions": contributions.main,
     "create": create.main,
+    "notifications": notifications.main,
     "protect": protect.main,
     "unwatch": unwatch.main,
     "watch": watch.main,
