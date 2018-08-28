@@ -2,6 +2,7 @@ import argparse
 import signal
 import sys
 
+from . import __version__
 from . import approve
 from . import assignme
 from . import block
@@ -26,6 +27,9 @@ def _signal_handle(sig, frame):
 
 def _build_parser():
     parser = argparse.ArgumentParser()
+    parser.add_argument("-v", "--version", action="version",
+                        version="%(prog)s " + __version__)
+
     subparsers = parser.add_subparsers(dest="subcommand")
     subparsers.required = True
 
