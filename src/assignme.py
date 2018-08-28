@@ -1,22 +1,22 @@
-#!/usr/bin/env python3
 #
 # Assigns the currently authorized user to a pull request
 # Usage: ghb assignme PR_URL
 #
 
-from helpers import credentials
-from helpers import pr
-import argparse
 import json
-import requests
 import sys
+
+import requests
+
+from .helpers import credentials
+from .helpers import pr
 
 NETRC_MACHINE = "api.github.com"
 URL = "https://api.github.com/repos/%s/issues/%s/assignees"
 
 
-def main(pull_request):
-    repo, number = pr.extract_info(pull_request)
+def main(args):
+    repo, number = pr.extract_info(args.pr)
     user, password = credentials.credentials(NETRC_MACHINE)
     headers = {"Accept": "application/vnd.github.v3+json"}
     params = {"assignees": [user]}
@@ -24,15 +24,4 @@ def main(pull_request):
                              data=json.dumps(params), headers=headers)
     if response.status_code != 201:
         print(json.dumps(response.json(), indent=4, sort_keys=True))
-        sys.exit(1)
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Assign yourself to a PR")
-    parser.add_argument("pr", help="The PR to assign yourself to")
-    arguments = parser.parse_args()
-
-    try:
-        main(arguments.pr)
-    except KeyboardInterrupt:
         sys.exit(1)

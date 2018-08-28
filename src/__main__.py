@@ -3,6 +3,7 @@ import signal
 import sys
 
 from . import approve
+from . import assignme
 from . import block
 from . import clear_comments
 
@@ -18,6 +19,10 @@ subparsers.required = True
 approve_parser = subparsers.add_parser("approve", help="Approve a PR")
 approve_parser.add_argument("pr", help="the PR to approve")
 
+assignme_parser = subparsers.add_parser(
+    "assignme", help="Assign yourself to a PR")
+assignme_parser.add_argument("pr", help="The PR to assign yourself to")
+
 block_parser = subparsers.add_parser("block", help="foobar")
 block_parser.add_argument("user", help="the user to block")
 
@@ -31,6 +36,7 @@ print(args)
 
 commands = {
     "approve": approve.main,
+    "assignme": assignme.main,
     "block": block.main,
     "clear-comments": clear_comments.main,
 }
