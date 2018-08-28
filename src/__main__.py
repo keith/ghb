@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import langs
 from . import ls_notifications
 from . import me
 from . import notifications
@@ -87,6 +88,10 @@ subparsers.add_parser("me", help="Open your profile")
 subparsers.add_parser("ls-notifications",
                       help="Show your unread notifications")
 
+langs_parser = subparsers.add_parser(
+    "langs", help="Get the language breakdown for a repo")
+langs_parser.add_argument("repo", help="The user/repo")
+
 args = parser.parse_args()
 print(args)
 
@@ -99,6 +104,7 @@ commands = {
     "create": create.main,
     "ls-notifications": ls_notifications.main,
     "me": me.main,
+    "langs": langs.main,
     "notifications": notifications.main,
     "protect": protect.main,
     "unwatch": unwatch.main,
