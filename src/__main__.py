@@ -6,6 +6,7 @@ from . import approve
 from . import assignme
 from . import block
 from . import clear_comments
+from . import contributions
 
 
 def _signal_handle(sig, frame):
@@ -31,6 +32,9 @@ clear_comments_parser = subparsers.add_parser(
 clear_comments_parser.add_argument("repo", help="the user/repo to edit")
 clear_comments_parser.add_argument("pr", help="the PR number to clear")
 
+contributions_parser = subparsers.add_parser(
+    "contributions", help="Get your contribution count for today")
+
 args = parser.parse_args()
 print(args)
 
@@ -39,6 +43,7 @@ commands = {
     "assignme": assignme.main,
     "block": block.main,
     "clear-comments": clear_comments.main,
+    "contributions": contributions.main,
 }
 
 signal.signal(signal.SIGINT, _signal_handle)
