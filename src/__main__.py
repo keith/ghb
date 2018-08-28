@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import get_blocks
 from . import langs
 from . import ls_notifications
 from . import me
@@ -85,6 +86,7 @@ pr_parser.add_argument("branch", help="The branch to base the PR on",
 
 subparsers.add_parser("notifications", help="Open unread notifications")
 subparsers.add_parser("me", help="Open your profile")
+subparsers.add_parser("get-blocks", help="Get list of users you've blocked")
 subparsers.add_parser("ls-notifications",
                       help="Show your unread notifications")
 
@@ -102,9 +104,10 @@ commands = {
     "clear-comments": clear_comments.main,
     "contributions": contributions.main,
     "create": create.main,
+    "get-blocks": get_blocks.main,
+    "langs": langs.main,
     "ls-notifications": ls_notifications.main,
     "me": me.main,
-    "langs": langs.main,
     "notifications": notifications.main,
     "protect": protect.main,
     "unwatch": unwatch.main,
