@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Adds an approval PR review to a pull request
 # Usage: ghb approve PR_URL

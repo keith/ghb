@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Open your unread GitHub notifications in new tabs
 # Usage: ghb notifications

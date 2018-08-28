@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Get the language breakdown for a repo
 # Usage: ghb langs USER/REPO
@@ -38,7 +38,7 @@ def main(repo):
         sys.exit("Failed with error: %s" % (json["message"]))
     total = total_lines(json)
     averages = {k: average(total, v) for k, v in json.items()}
-    averages = sorted(averages.iteritems(), key=itemgetter(1), reverse=True)
+    averages = sorted(averages.items(), key=itemgetter(1), reverse=True)
     for t in averages:
         print("%15s: %8.2f%%" % (t[0], t[1]))
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Create new GitHub repos
 # Usage: ghb create NAME [-d/--description repo description]
