@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import protect
 from . import unwatch
 from . import watch
 
@@ -65,6 +66,15 @@ unwatch_parser = subparsers.add_parser("unwatch", help="Unwatch GitHub repos")
 unwatch_parser.add_argument("-u", "--users", help="comma separated valid users. Repos from these users are never unwatched", default="")
 unwatch_parser.add_argument("-i", "--ignored", help="command separated ignored repo names. Repos from this list are automatically unwatched", default="")
 
+protect_parser = subparsers.add_parser("protect",
+                                       help="Protect/Unprotect a branch")
+protect_parser.add_argument(
+    "--disable", help="disable protection", action="store_true", default=False)
+protect_parser.add_argument("repo", help="the user/repo to edit")
+protect_parser.add_argument("branch", help="The name of the branch")
+protect_parser.add_argument("statuses", nargs="*",
+                            help="The required status checks")
+
 args = parser.parse_args()
 print(args)
 
@@ -75,8 +85,9 @@ commands = {
     "clear-comments": clear_comments.main,
     "contributions": contributions.main,
     "create": create.main,
-    "watch": watch.main,
+    "protect": protect.main,
     "unwatch": unwatch.main,
+    "watch": watch.main,
 }
 
 signal.signal(signal.SIGINT, _signal_handle)
