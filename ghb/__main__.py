@@ -138,3 +138,7 @@ def main():
 
     signal.signal(signal.SIGINT, _signal_handle)
     commands[args.subcommand](args)
+
+
+if __name__ == "__main__":
+    main()
