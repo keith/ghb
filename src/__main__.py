@@ -70,8 +70,14 @@ watch_parser = subparsers.add_parser("watch", help="Watch GitHub repos")
 watch_parser.add_argument("repo", help="the user/repo to watch")
 
 unwatch_parser = subparsers.add_parser("unwatch", help="Unwatch GitHub repos")
-unwatch_parser.add_argument("-u", "--users", help="comma separated valid users. Repos from these users are never unwatched", default="")
-unwatch_parser.add_argument("-i", "--ignored", help="command separated ignored repo names. Repos from this list are automatically unwatched", default="")
+unwatch_parser.add_argument(
+    "-u", "--users",
+    help="comma separated valid users. "
+    "Repos from these users are never unwatched", default="")
+unwatch_parser.add_argument(
+    "-i", "--ignored",
+    help="command separated ignored repo names. "
+    "Repos from this list are automatically unwatched", default="")
 
 protect_parser = subparsers.add_parser("protect",
                                        help="Protect/Unprotect a branch")
