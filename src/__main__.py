@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import download_release
 from . import get_blocks
 from . import langs
 from . import ls_notifications
@@ -94,6 +95,13 @@ langs_parser = subparsers.add_parser(
     "langs", help="Get the language breakdown for a repo")
 langs_parser.add_argument("repo", help="The user/repo")
 
+download_release_parser = subparsers.add_parser(
+    "download-release", help="Download the most recent release of a repo")
+download_release_parser.add_argument("repo", help="the user/repo")
+download_release_parser.add_argument(
+    "-f", "--filename", action="store_true", help="only print the filename",
+    default=False)
+
 args = parser.parse_args()
 print(args)
 
@@ -104,6 +112,7 @@ commands = {
     "clear-comments": clear_comments.main,
     "contributions": contributions.main,
     "create": create.main,
+    "download-release": download_release.main,
     "get-blocks": get_blocks.main,
     "langs": langs.main,
     "ls-notifications": ls_notifications.main,
