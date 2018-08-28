@@ -13,6 +13,6 @@ setuptools.setup(
     install_requires=[
         "requests==2.12.1",
     ],
-    packages=["ghb"],
+    packages=["ghb", "ghb.helpers"],
     entry_points={"console_scripts": ["ghb=ghb.__main__:main"]},
 )
