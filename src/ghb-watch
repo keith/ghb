@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Watch a GitHub repo
 # Usage: ghb watch user/repo

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Enable/disable GitHub protected branch status
 # Usage: ghb protect USER/REPO BRANCH [--disable] [STATUSES...]

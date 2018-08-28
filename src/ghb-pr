@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Open a GitHub PR from the current branch to master or a specified branch
 # Edit the PR message in vim

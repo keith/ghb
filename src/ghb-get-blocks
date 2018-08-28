@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Get the list of users you've blocked on github
 # Note: your token needs 'user' access for this API

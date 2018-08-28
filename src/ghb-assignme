@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Assigns the currently authorized user to a pull request
 # Usage: ghb assignme PR_URL
