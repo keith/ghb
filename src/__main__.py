@@ -75,6 +75,10 @@ protect_parser.add_argument("branch", help="The name of the branch")
 protect_parser.add_argument("statuses", nargs="*",
                             help="The required status checks")
 
+pr_parser = subparsers.add_parser("pr", help="Create a PR")
+pr_parser.add_argument("branch", help="The branch to base the PR on",
+                       nargs="?", default="master")
+
 args = parser.parse_args()
 print(args)
 

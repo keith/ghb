@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 # Open a GitHub PR from the current branch to master or a specified branch
 # Edit the PR message in vim
@@ -9,15 +8,15 @@
 # ghb pr some-branch # This opens the PR against 'some-branch'
 #
 
-from helpers import credentials
-from json import dumps
-from subprocess import check_output
-from webbrowser import open_new_tab
-import os
+import json
 import os.path
-import requests
-import signal
+import subprocess
 import sys
+import webbrowser
+
+import requests
+
+from .helpers import credentials
 
 URL = "https://api.github.com/repos/%s/pulls"
 EXISTING_URL = URL
@@ -25,12 +24,9 @@ NETRC_MACHINE = "api.github.com"
 HEADERS = {'Accept': 'application/vnd.github.v3+json'}
 
 
-def signal_handle(sig, frame):
-    sys.exit(0)
-
-
 def current_branch_name():
-    branch = check_output("git symbolic-ref --short HEAD".split()).strip()
+    branch = subprocess.check_output(
+        "git symbolic-ref --short HEAD".split()).strip()
     return "%s:%s" % (repo_username(), branch)
 
 
@@ -57,11 +53,13 @@ def filter_empty_string(array):
 
 
 def origin_url():
-    return check_output("git config --get remote.origin.url".split()).strip()
+    return subprocess.check_output(
+        "git config --get remote.origin.url".split()).strip()
 
 
 def git_directory():
-    return check_output("git rev-parse -q --git-dir".split()).strip()
+    return subprocess.check_output(
+        "git rev-parse -q --git-dir".split()).strip()
 
 
 def pr_message_file():
@@ -69,12 +67,14 @@ def pr_message_file():
 
 
 def last_commit_message():
-    message = check_output("git log --format=%B -n 1".split()).strip()
+    message = subprocess.check_output(
+        "git log --format=%B -n 1".split()).strip()
     return commit_from_string(message)
 
 
 def _get_last_branch():
-    return check_output("git rev-parse --abbrev-ref @{-1}".split()).strip()
+    return subprocess.check_output(
+        "git rev-parse --abbrev-ref @{-1}".split()).strip()
 
 
 def commit_from_string(string):
@@ -104,7 +104,7 @@ def pr_message():
     lines = text.split("\n")
     lines = [x for x in lines if not x.startswith("#")]
     text = "\n".join(lines)
-    if len(text.strip()) < 1:
+    if not text.strip():
         sys.exit("Not submitting with empty message")
 
     return commit_from_string(text)
@@ -117,10 +117,10 @@ def open_existing_pr(api_url, local, remote):
     r = requests.get(api_url,
                      auth=(username, password),
                      headers=HEADERS,
-                     data=dumps(payload))
+                     data=json.dumps(payload))
     if r.status_code == 200:
         pr = r.json()[0]
-        open_new_tab(pr["html_url"])
+        webbrowser.open_new_tab(pr["html_url"])
 
 
 def submit_pr(remote):
@@ -137,23 +137,12 @@ def submit_pr(remote):
     r = requests.post(api_url,
                       auth=(username, password),
                       headers=HEADERS,
-                      data=dumps(payload),
-                      )
-    json = r.json()
+                      data=json.dumps(payload))
+    response_json = r.json()
     if r.status_code == 201:
-        open_new_tab(json["html_url"])
+        webbrowser.open_new_tab(response_json["html_url"])
     elif r.status_code == 422:
         open_existing_pr(api_url, local, remote)
     else:
-        error_message = json["errors"][0]["message"]
+        error_message = response_json["errors"][0]["message"]
         print(error_message)
-
-
-signal.signal(signal.SIGINT, signal_handle)
-if __name__ == '__main__':
-    if len(sys.argv) > 2:
-        print("Usage: ghb pr [REMOTE]")
-    elif len(sys.argv) == 2:
-        submit_pr(sys.argv[1])
-    else:
-        submit_pr("master")
