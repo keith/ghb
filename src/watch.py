@@ -1,45 +1,33 @@
-#!/usr/bin/env python3
 #
 # Watch a GitHub repo
 # Usage: ghb watch user/repo
 #
 
 import re
-import requests
-import signal
 import sys
-from argparse import ArgumentParser
-from helpers import credentials
-from json import dumps
+import json
+
+import requests
+
+from .helpers import credentials
 
 WATCH = "https://api.github.com/repos/%s/subscription"
 NETRC_MACHINE = "api.github.com"
 
 
-def signal_handle(sig, frame):
-    sys.exit(0)
-
-
-def watch(repo):
-    regex = re.compile("\w+/\w+")
+def main(args):
+    repo = args.repo
+    regex = re.compile(r"\w+/\w+")
     if not regex.match(repo):
         print("'%s' is not in the format 'user/repo'" % repo)
         sys.exit(1)
 
     user, password = credentials.credentials(NETRC_MACHINE)
     url = WATCH % repo
-    body = dumps({"subscribed": True})
+    body = json.dumps({"subscribed": True})
     r = requests.put(url, data=body, auth=(user, password))
     code = r.status_code
     if code == 200:
         print("Success")
     else:
         print("Failed with code: %d" % code)
-
-
-signal.signal(signal.SIGINT, signal_handle)
-if __name__ == '__main__':
-    parser = ArgumentParser(description="Watch GitHub repos")
-    parser.add_argument("repo", help="the user/repo to watch")
-    ns = parser.parse_args()
-    watch(vars(ns)["repo"])

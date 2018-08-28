@@ -8,6 +8,7 @@ from . import block
 from . import clear_comments
 from . import contributions
 from . import create
+from . import watch
 
 
 def _signal_handle(sig, frame):
@@ -56,6 +57,9 @@ create_parser.add_argument(
     "--no-downloads", action="store_false", help="disable downloads",
     default=True, dest="has_downloads")
 
+watch_parser = subparsers.add_parser("watch", help="Watch GitHub repos")
+watch_parser.add_argument("repo", help="the user/repo to watch")
+
 args = parser.parse_args()
 print(args)
 
@@ -66,6 +70,7 @@ commands = {
     "clear-comments": clear_comments.main,
     "contributions": contributions.main,
     "create": create.main,
+    "watch": watch.main,
 }
 
 signal.signal(signal.SIGINT, _signal_handle)
