@@ -15,6 +15,7 @@ from . import ls_notifications
 from . import me
 from . import notifications
 from . import protect
+from . import pr
 from . import unwatch
 from . import watch
 
@@ -118,6 +119,7 @@ commands = {
     "ls-notifications": ls_notifications.main,
     "me": me.main,
     "notifications": notifications.main,
+    "pr": pr.main,
     "protect": protect.main,
     "unwatch": unwatch.main,
     "watch": watch.main,

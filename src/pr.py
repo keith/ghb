@@ -123,7 +123,8 @@ def open_existing_pr(api_url, local, remote):
         webbrowser.open_new_tab(pr["html_url"])
 
 
-def submit_pr(remote):
+def main(args):
+    remote = args.branch
     if remote == "-":
         remote = _get_last_branch()
 
