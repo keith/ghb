@@ -24,9 +24,12 @@ NETRC_MACHINE = "api.github.com"
 HEADERS = {'Accept': 'application/vnd.github.v3+json'}
 
 
+def _run_git_command(command):
+    return subprocess.check_output(["git"] + command.split(" ")).decode().strip()
+
+
 def current_branch_name():
-    branch = subprocess.check_output(
-        "git symbolic-ref --short HEAD".split()).strip()
+    branch = _run_git_command("symbolic-ref --short HEAD")
     return "%s:%s" % (repo_username(), branch)
 
 
@@ -53,13 +56,11 @@ def filter_empty_string(array):
 
 
 def origin_url():
-    return subprocess.check_output(
-        "git config --get remote.origin.url".split()).strip()
+    return _run_git_command("config --get remote.origin.url")
 
 
 def git_directory():
-    return subprocess.check_output(
-        "git rev-parse -q --git-dir".split()).strip()
+    return _run_git_command("rev-parse -q --git-dir")
 
 
 def pr_message_file():
@@ -67,14 +68,12 @@ def pr_message_file():
 
 
 def last_commit_message():
-    message = subprocess.check_output(
-        "git log --format=%B -n 1".split()).strip()
+    message = _run_git_command("log --format=%B -n 1")
     return commit_from_string(message)
 
 
 def _get_last_branch():
-    return subprocess.check_output(
-        "git rev-parse --abbrev-ref @{-1}".split()).strip()
+    return _run_git_command("rev-parse --abbrev-ref @{-1}")
 
 
 def commit_from_string(string):
