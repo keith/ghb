@@ -43,9 +43,6 @@ clear_comments_parser = subparsers.add_parser(
 clear_comments_parser.add_argument("repo", help="the user/repo to edit")
 clear_comments_parser.add_argument("pr", help="the PR number to clear")
 
-contributions_parser = subparsers.add_parser(
-    "contributions", help="Get your contribution count for today")
-
 create_parser = subparsers.add_parser("create",
                                       help="Create a new GitHub repo")
 create_parser.add_argument("name", help="the name of the repo")
@@ -66,18 +63,16 @@ create_parser.add_argument(
     "--no-downloads", action="store_false", help="disable downloads",
     default=True, dest="has_downloads")
 
-watch_parser = subparsers.add_parser("watch", help="Watch GitHub repos")
-watch_parser.add_argument("repo", help="the user/repo to watch")
+download_release_parser = subparsers.add_parser(
+    "download-release", help="Download the most recent release of a repo")
+download_release_parser.add_argument("repo", help="the user/repo")
+download_release_parser.add_argument(
+    "-f", "--filename", action="store_true", help="only print the filename",
+    default=False)
 
-unwatch_parser = subparsers.add_parser("unwatch", help="Unwatch GitHub repos")
-unwatch_parser.add_argument(
-    "-u", "--users",
-    help="comma separated valid users. "
-    "Repos from these users are never unwatched", default="")
-unwatch_parser.add_argument(
-    "-i", "--ignored",
-    help="command separated ignored repo names. "
-    "Repos from this list are automatically unwatched", default="")
+langs_parser = subparsers.add_parser(
+    "langs", help="Get the language breakdown for a repo")
+langs_parser.add_argument("repo", help="The user/repo")
 
 protect_parser = subparsers.add_parser("protect",
                                        help="Protect/Unprotect a branch")
@@ -92,22 +87,26 @@ pr_parser = subparsers.add_parser("pr", help="Create a PR")
 pr_parser.add_argument("branch", help="The branch to base the PR on",
                        nargs="?", default="master")
 
-subparsers.add_parser("notifications", help="Open unread notifications")
-subparsers.add_parser("me", help="Open your profile")
+unwatch_parser = subparsers.add_parser("unwatch", help="Unwatch GitHub repos")
+unwatch_parser.add_argument(
+    "-u", "--users",
+    help="comma separated valid users. "
+    "Repos from these users are never unwatched", default="")
+unwatch_parser.add_argument(
+    "-i", "--ignored",
+    help="command separated ignored repo names. "
+    "Repos from this list are automatically unwatched", default="")
+
+watch_parser = subparsers.add_parser("watch", help="Watch GitHub repos")
+watch_parser.add_argument("repo", help="the user/repo to watch")
+
+subparsers.add_parser("contributions",
+                      help="Get your contribution count for today")
 subparsers.add_parser("get-blocks", help="Get list of users you've blocked")
 subparsers.add_parser("ls-notifications",
                       help="Show your unread notifications")
-
-langs_parser = subparsers.add_parser(
-    "langs", help="Get the language breakdown for a repo")
-langs_parser.add_argument("repo", help="The user/repo")
-
-download_release_parser = subparsers.add_parser(
-    "download-release", help="Download the most recent release of a repo")
-download_release_parser.add_argument("repo", help="the user/repo")
-download_release_parser.add_argument(
-    "-f", "--filename", action="store_true", help="only print the filename",
-    default=False)
+subparsers.add_parser("me", help="Open your profile")
+subparsers.add_parser("notifications", help="Open unread notifications")
 
 args = parser.parse_args()
 print(args)
