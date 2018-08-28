@@ -7,7 +7,7 @@
 import signal
 import sys
 from helpers import credentials
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from requests import get
 
 URL = "https://github.com/users/%s/contributions"

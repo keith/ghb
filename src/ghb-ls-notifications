@@ -33,10 +33,10 @@ def show_pull_requests():
         notifications.setdefault(repo_name, []).append(notification)
 
     for name, urls in notifications.items():
-        print name
+        print(name)
         for url in urls:
-            print url
-        print
+            print(url)
+        print()
 
 
 signal.signal(signal.SIGINT, signal_handle)

@@ -27,7 +27,7 @@ def signal_handle(sig, frame):
 
 
 def ask(repo):
-    i = raw_input("Unwatch " + repo + " y/n/o: ").lower()[0]
+    i = input("Unwatch " + repo + " y/n/o: ").lower()[0]
     if i.startswith("o"):
         open_new_tab(HTML_URL % repo)
         return ask(repo)
@@ -37,7 +37,7 @@ def ask(repo):
 
 def repo_name(repo):
     name = repo["full_name"]
-    return map(str.lower, map(str, name.split("/")))
+    return [x.lower() for x in name.split("/")]
 
 
 def is_valid_user(repo, valid_users):
@@ -59,7 +59,7 @@ def unwatch_chosen(valid_users, ignored_repos):
         else:
             break
 
-    json = filter(lambda x: is_valid_user(x, valid_users), json)
+    json = [x for x in json if is_valid_user(x, valid_users)]
     print("Asking about %s repos" % len(json))
 
     for repo in json:
@@ -88,6 +88,6 @@ if __name__ == '__main__':
     ns = parser.parse_args()
     args = vars(ns)
 
-    users = map(str.lower, args["users"].split(","))
-    ignored = map(str.lower, args["ignored"].split(","))
+    users = [x.lower() for x in args["users"].split(",")]
+    ignored = [x.lower() for x in args["ignored"].split(",")]
     unwatch_chosen(users, ignored)
