@@ -9,7 +9,7 @@ import json
 
 import requests
 
-from .helpers import credentials
+from helpers import credentials
 
 WATCH = "https://api.github.com/repos/%s/subscription"
 NETRC_MACHINE = "api.github.com"

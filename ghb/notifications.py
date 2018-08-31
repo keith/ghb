@@ -8,7 +8,7 @@ import webbrowser
 
 import requests
 
-from .helpers import credentials
+from helpers import credentials
 
 URL = "https://api.github.com/notifications"
 NETRC_MACHINE = "api.github.com"

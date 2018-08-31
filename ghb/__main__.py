@@ -3,22 +3,22 @@ import signal
 import sys
 
 from . import __version__
-from . import approve
-from . import assignme
-from . import block
-from . import clear_comments
-from . import contributions
-from . import create
-from . import download_release
-from . import get_blocks
-from . import langs
-from . import ls_notifications
-from . import me
-from . import notifications
-from . import protect
-from . import pr
-from . import unwatch
-from . import watch
+import approve
+import assignme
+import block
+import clear_comments
+import contributions
+import create
+import download_release
+import get_blocks
+import langs
+import ls_notifications
+import me
+import notifications
+import pr
+import protect
+import unwatch
+import watch
 
 
 def _signal_handle(sig, frame):

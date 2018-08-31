@@ -5,7 +5,7 @@
 
 import webbrowser
 
-from .helpers import credentials
+from helpers import credentials
 
 URL = "https://github.com/%s"
 NETRC_MACHINE = "api.github.com"

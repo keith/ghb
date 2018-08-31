@@ -7,7 +7,7 @@ import html.parser
 
 import requests
 
-from .helpers import credentials
+from helpers import credentials
 
 URL = "https://github.com/users/%s/contributions"
 NETRC_MACHINE = "github.com"

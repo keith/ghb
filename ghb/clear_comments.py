@@ -7,7 +7,7 @@ import sys
 
 import requests
 
-from .helpers import credentials
+from helpers import credentials
 
 PULLS_URL = "https://api.github.com/repos/%s/pulls/%s/comments"
 PULLS_DELETE_URL = "https://api.github.com/repos/%s/pulls/comments/%s"
