@@ -1,31 +1,26 @@
-#!/usr/bin/env python3
 #
 # Print your contributions for the current day
 # Usage: ghb contributions
 #
 
-import signal
-import sys
-from helpers import credentials
-from html.parser import HTMLParser
-from requests import get
+import html.parser
+
+import requests
+
+from .helpers import credentials
 
 URL = "https://github.com/users/%s/contributions"
 NETRC_MACHINE = "github.com"
 
 
-class CustomHTMLParser(HTMLParser):
+class CustomHTMLParser(html.parser.HTMLParser):
     def __init__(self):
-        HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.rects = []
 
     def handle_starttag(self, tag, attrs):
         if tag == "rect":
             self.rects.append(attrs)
-
-
-def signal_handle(sig, frame):
-    sys.exit(0)
 
 
 def pluralize(number):
@@ -34,9 +29,9 @@ def pluralize(number):
     return "s"
 
 
-def main():
+def main(_):
     username, _ = credentials.credentials(NETRC_MACHINE)
-    r = get(URL % username)
+    r = requests.get(URL % username)
     parser = CustomHTMLParser()
     parser.feed(r.text)
     d = dict(parser.rects[-1])
@@ -44,8 +39,3 @@ def main():
     date = d["data-date"]
     print("You have %s contribution%s on %s" %
           (number, pluralize(number), date))
-
-
-signal.signal(signal.SIGINT, signal_handle)
-if __name__ == '__main__':
-    main()
