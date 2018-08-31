@@ -12,7 +12,7 @@ import webbrowser
 
 import requests
 
-from helpers import credentials
+from .helpers import credentials
 
 WATCHING = "https://api.github.com/user/subscriptions?page=%s&per_page=100"
 UNWATCH = "https://api.github.com/repos/%s/subscription"

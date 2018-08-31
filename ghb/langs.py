@@ -8,7 +8,7 @@ import sys
 
 import requests
 
-from helpers import credentials
+from .helpers import credentials
 
 URL = "https://api.github.com/repos/%s/languages"
 NETRC_MACHINE = "api.github.com"

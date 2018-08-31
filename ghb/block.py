@@ -8,7 +8,7 @@ import sys
 
 import requests
 
-from helpers import credentials
+from .helpers import credentials
 
 BLOCK_URL = "https://api.github.com/user/blocks/%s"
 NETRC_MACHINE = "api.github.com"

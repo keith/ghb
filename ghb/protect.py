@@ -12,7 +12,7 @@ import json
 
 import requests
 
-from helpers import credentials
+from .helpers import credentials
 
 
 URL = "https://api.github.com/repos/%s/branches/%s"

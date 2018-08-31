@@ -8,8 +8,8 @@ import sys
 
 import requests
 
-from helpers import credentials
-from helpers import pr
+from .helpers import credentials
+from .helpers import pr
 
 NETRC_MACHINE = "api.github.com"
 URL = "https://api.github.com/repos/%s/pulls/%s/reviews"

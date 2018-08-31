@@ -13,7 +13,7 @@ import webbrowser
 
 import requests
 
-from helpers import credentials
+from .helpers import credentials
 
 URL = "https://api.github.com/user/repos"
 NETRC_MACHINE = "api.github.com"
