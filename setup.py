@@ -11,7 +11,7 @@ setuptools.setup(
     author="Keith Smiley",
     author_email="keithbsmiley@gmail.com",
     install_requires=[
-        "requests==2.12.1",
+        "requests==2.20.0",
     ],
     packages=["ghb", "ghb.helpers"],
     entry_points={"console_scripts": ["ghb=ghb.__main__:main"]},
