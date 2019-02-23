@@ -45,4 +45,10 @@ See the header comment in each individual file for specific usage.
 brew install keith/formulae/ghb
 ```
 
-Or put everything inside the `src` directory somewhere in your `$PATH`
+Or:
+
+```
+pip install .
+```
+
+(and `zsh/_ghb` if you want zsh completions)
