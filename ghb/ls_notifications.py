@@ -20,10 +20,11 @@ def main(_):
     for blob in r.json():
         repo_name = blob["repository"]["full_name"]
         api_url = blob["subject"]["url"]
-        html_url = (api_url
-                    .replace("api.", "", 1)
-                    .replace("/repos", "", 1)
-                    .replace("/pulls/", "/pull/"))
+        html_url = (
+            api_url.replace("api.", "", 1)
+            .replace("/repos", "", 1)
+            .replace("/pulls/", "/pull/")
+        )
         notification = "\t%s (%s)" % (blob["subject"]["title"], html_url)
         notifications.setdefault(repo_name, []).append(notification)
 

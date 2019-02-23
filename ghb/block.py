@@ -18,10 +18,11 @@ def main(args):
     block_user = args.user
     user, password = credentials.credentials(NETRC_MACHINE)
     headers = {
-        'Accept': 'application/vnd.github.giant-sentry-fist-preview+json'
+        "Accept": "application/vnd.github.giant-sentry-fist-preview+json"
     }
-    r = requests.put(BLOCK_URL % block_user, auth=(user, password),
-                     headers=headers)
+    r = requests.put(
+        BLOCK_URL % block_user, auth=(user, password), headers=headers
+    )
     if r.status_code == 422:
         print("User '%s' is already blocked" % block_user)
         sys.exit(1)

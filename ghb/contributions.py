@@ -37,5 +37,6 @@ def main(_):
     d = dict(parser.rects[-1])
     number = d["data-count"]
     date = d["data-date"]
-    print("You have %s contribution%s on %s" %
-          (number, pluralize(number), date))
+    print(
+        "You have %s contribution%s on %s" % (number, pluralize(number), date)
+    )

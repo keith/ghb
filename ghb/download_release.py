@@ -38,7 +38,7 @@ def main(args):
     assets = newest["assets"]
     first_asset = assets[0]
     asset_url = first_asset["browser_download_url"]
-    content_type = first_asset["content_type"].split('/')[-1]
+    content_type = first_asset["content_type"].split("/")[-1]
     default = first_asset["name"].split(".")[-1]
     headers = {"Accept": "application/octet-stream"}
     r = requests.get(asset_url, headers=headers, stream=True)

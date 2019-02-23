@@ -21,8 +21,12 @@ def main(args):
     user, password = credentials.credentials(NETRC_MACHINE)
     params = {"event": "APPROVE"}
     headers = {"Accept": "application/vnd.github.black-cat-preview+json"}
-    response = requests.post(URL % (repo, number), auth=(user, password),
-                             data=json.dumps(params), headers=headers)
+    response = requests.post(
+        URL % (repo, number),
+        auth=(user, password),
+        data=json.dumps(params),
+        headers=headers,
+    )
     if response.status_code != 200:
         print(json.dumps(response.json(), indent=4, sort_keys=True))
         sys.exit(1)
