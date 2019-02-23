@@ -39,10 +39,14 @@ def data_for_options(options):
 def main(args):
     options = vars(args)
     username, password = credentials.credentials(NETRC_MACHINE)
-    headers = {'Accept': 'application/vnd.github.loki-preview'}
+    headers = {"Accept": "application/vnd.github.loki-preview"}
     payload = json.dumps(data_for_options(options))
-    r = requests.patch(url_from_options(options), auth=(username, password),
-                       headers=headers, data=payload)
+    r = requests.patch(
+        url_from_options(options),
+        auth=(username, password),
+        headers=headers,
+        data=payload,
+    )
     if r.status_code == 200:
         print("Success")
     else:

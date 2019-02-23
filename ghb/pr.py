@@ -21,11 +21,13 @@ from .helpers import credentials
 URL = "https://api.github.com/repos/%s/pulls"
 EXISTING_URL = URL
 NETRC_MACHINE = "api.github.com"
-HEADERS = {'Accept': 'application/vnd.github.v3+json'}
+HEADERS = {"Accept": "application/vnd.github.v3+json"}
 
 
 def _run_git_command(command):
-    return subprocess.check_output(["git"] + command.split(" ")).decode().strip()
+    return (
+        subprocess.check_output(["git"] + command.split(" ")).decode().strip()
+    )
 
 
 def current_branch_name():
@@ -113,10 +115,12 @@ def open_existing_pr(api_url, local, remote):
     print("Opening existing PR")
     username, password = credentials.credentials(NETRC_MACHINE)
     payload = {"head": local, "base": remote}
-    r = requests.get(api_url,
-                     auth=(username, password),
-                     headers=HEADERS,
-                     data=json.dumps(payload))
+    r = requests.get(
+        api_url,
+        auth=(username, password),
+        headers=HEADERS,
+        data=json.dumps(payload),
+    )
     if r.status_code == 200:
         pr = r.json()[0]
         webbrowser.open_new_tab(pr["html_url"])
@@ -134,10 +138,12 @@ def main(args):
         sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
     payload = {"title": text, "body": body, "base": remote, "head": local}
-    r = requests.post(api_url,
-                      auth=(username, password),
-                      headers=HEADERS,
-                      data=json.dumps(payload))
+    r = requests.post(
+        api_url,
+        auth=(username, password),
+        headers=HEADERS,
+        data=json.dumps(payload),
+    )
     response_json = r.json()
     if r.status_code == 201:
         webbrowser.open_new_tab(response_json["html_url"])

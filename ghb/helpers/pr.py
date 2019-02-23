@@ -2,7 +2,8 @@ import re
 import sys
 
 REGEX = re.compile(
-    r"(https?://github.com/)?(.*/.*)/pull/(\d+)/?(commits|files)?")
+    r"(https?://github.com/)?(.*/.*)/pull/(\d+)/?(commits|files)?"
+)
 
 
 def extract_info(pr):

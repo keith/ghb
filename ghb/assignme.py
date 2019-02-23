@@ -20,8 +20,12 @@ def main(args):
     user, password = credentials.credentials(NETRC_MACHINE)
     headers = {"Accept": "application/vnd.github.v3+json"}
     params = {"assignees": [user]}
-    response = requests.post(URL % (repo, number), auth=(user, password),
-                             data=json.dumps(params), headers=headers)
+    response = requests.post(
+        URL % (repo, number),
+        auth=(user, password),
+        data=json.dumps(params),
+        headers=headers,
+    )
     if response.status_code != 201:
         print(json.dumps(response.json(), indent=4, sort_keys=True))
         sys.exit(1)

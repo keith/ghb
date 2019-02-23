@@ -21,10 +21,11 @@ NETRC_MACHINE = "api.github.com"
 
 def main(args):
     username, password = credentials.credentials(NETRC_MACHINE)
-    headers = {'Accept': 'application/vnd.github.v3+json'}
+    headers = {"Accept": "application/vnd.github.v3+json"}
     payload = json.dumps(vars(args))
-    r = requests.post(URL, auth=(username, password), headers=headers,
-                      data=payload)
+    r = requests.post(
+        URL, auth=(username, password), headers=headers, data=payload
+    )
     response_json = r.json()
     if r.status_code == 201:
         print("Success")

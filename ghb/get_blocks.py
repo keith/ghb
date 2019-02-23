@@ -17,7 +17,7 @@ NETRC_MACHINE = "api.github.com"
 def main(_):
     user, password = credentials.credentials(NETRC_MACHINE)
     headers = {
-        'Accept': 'application/vnd.github.giant-sentry-fist-preview+json'
+        "Accept": "application/vnd.github.giant-sentry-fist-preview+json"
     }
     r = requests.get(URL, auth=(user, password), headers=headers)
     if r.status_code != 200:
