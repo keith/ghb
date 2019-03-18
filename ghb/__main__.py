@@ -15,8 +15,9 @@ from . import langs
 from . import ls_notifications
 from . import me
 from . import notifications
-from . import protect
 from . import pr
+from . import protect
+from . import unblock
 from . import unwatch
 from . import watch
 
@@ -42,8 +43,13 @@ def _build_parser():
     )
     assignme_parser.add_argument("pr", help="The PR to assign yourself to")
 
-    block_parser = subparsers.add_parser("block", help="foobar")
+    block_parser = subparsers.add_parser("block", help="block a given user")
     block_parser.add_argument("user", help="the user to block")
+
+    unblock_parser = subparsers.add_parser(
+        "unblock", help="unblock a given user"
+    )
+    unblock_parser.add_argument("user", help="the user to unblock")
 
     clear_comments_parser = subparsers.add_parser(
         "clear-comments", help="Protect/Unprotect a branch"
@@ -173,6 +179,7 @@ def main():
         "approve": approve.main,
         "assignme": assignme.main,
         "block": block.main,
+        "unblock": unblock.main,
         "clear-comments": clear_comments.main,
         "contributions": contributions.main,
         "create": create.main,
