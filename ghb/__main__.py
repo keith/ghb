@@ -131,6 +131,13 @@ def _build_parser():
 
     pr_parser = subparsers.add_parser("pr", help="Create a PR")
     pr_parser.add_argument(
+        "-d",
+        "--draft",
+        action="store_true",
+        help="Create the PR as a draft",
+        default=False,
+    )
+    pr_parser.add_argument(
         "branch",
         help="The branch to base the PR on",
         nargs="?",

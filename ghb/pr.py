@@ -19,9 +19,8 @@ import requests
 from .helpers import credentials
 
 URL = "https://api.github.com/repos/%s/pulls"
-EXISTING_URL = URL
 NETRC_MACHINE = "api.github.com"
-HEADERS = {"Accept": "application/vnd.github.v3+json"}
+HEADERS = {"Accept": "application/vnd.github.shadow-cat-preview+json"}
 
 
 def _run_git_command(command):
@@ -138,6 +137,9 @@ def main(args):
         sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
     payload = {"title": text, "body": body, "base": remote, "head": local}
+    if args.draft:
+        payload["draft"] = True
+
     r = requests.post(
         api_url,
         auth=(username, password),
