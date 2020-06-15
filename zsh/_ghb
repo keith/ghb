@@ -51,6 +51,7 @@ else
   'create:create a new repo'
   'download-release:download the newest release for a given repository'
   "get-blocks:get the list of users you've blocked on GitHub"
+  'greenify:force statuses on a PR to be green'
   'langs:get the language breakdown for a repo'
   'ls-notifications:print out your unread notifications'
   'me:open your profile on GitHub'

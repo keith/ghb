@@ -11,6 +11,7 @@ from . import contributions
 from . import create
 from . import download_release
 from . import get_blocks
+from . import greenify
 from . import langs
 from . import ls_notifications
 from . import me
@@ -177,6 +178,11 @@ def _build_parser():
     subparsers.add_parser("me", help="Open your profile")
     subparsers.add_parser("notifications", help="Open unread notifications")
 
+    greenify_parser = subparsers.add_parser(
+        "greenify", help="Make a commit green by editing the statuses"
+    )
+    greenify_parser.add_argument("repo", help="the user/repo to edit")
+    greenify_parser.add_argument("sha", help="the sha with the statuses")
     return parser
 
 
@@ -192,6 +198,7 @@ def main():
         "create": create.main,
         "download-release": download_release.main,
         "get-blocks": get_blocks.main,
+        "greenify": greenify.main,
         "langs": langs.main,
         "ls-notifications": ls_notifications.main,
         "me": me.main,

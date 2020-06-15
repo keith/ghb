@@ -19,6 +19,7 @@ allows you to create simple single purpose scripts in any language.
 - [download-release](ghb/download_release.py), download the most recent
   release from a repo
 - [get-blocks](ghb/get_blocks.py), get the users you've blocked
+- [greenify](ghb/greenify.py), force all statuses on a PR to be gren
 - [langs](ghb/langs.py), get the language breakdown for a repo
 - [ls-notifications](ghb/ls_notifications.py), list your unread
   notifications
