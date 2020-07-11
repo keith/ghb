@@ -2,7 +2,6 @@
 # Download the first asset from the newest release from a GitHub repo
 # Usage: ghb download-release USER/REPO [-f/--filename only print the filename]
 #
-
 import sys
 
 import requests

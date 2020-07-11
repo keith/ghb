@@ -2,7 +2,6 @@
 # Clear comments on a pull request
 # Usage: ghb clear-comments USER/REPO PR_NUMBER
 #
-
 import sys
 
 import requests

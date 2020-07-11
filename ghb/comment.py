@@ -4,11 +4,10 @@
 #   You can also pass a file list as an issue where the argument starts with
 #   a '@' and each line eof the file is a URL
 #
-
-from typing import List
 import argparse
 import json
 import re
+from typing import List
 
 import requests
 

@@ -7,7 +7,6 @@
 #
 # Note: Arguments are comma separated
 #
-
 import webbrowser
 
 import requests

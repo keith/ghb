@@ -2,10 +2,9 @@
 # Watch a GitHub repo
 # Usage: ghb watch user/repo
 #
-
+import json
 import re
 import sys
-import json
 
 import requests
 

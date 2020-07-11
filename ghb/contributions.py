@@ -2,7 +2,6 @@
 # Print your contributions for the current day
 # Usage: ghb contributions
 #
-
 import html.parser
 
 import requests
