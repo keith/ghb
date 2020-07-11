@@ -139,6 +139,12 @@ def _build_parser():
         default=False,
     )
     pr_parser.add_argument(
+        "--no-edit",
+        action="store_true",
+        help="Don't prompt for editing the PR message, automatically submit",
+        default=False,
+    )
+    pr_parser.add_argument(
         "--no-open",
         action="store_true",
         help="Don't open the PR in the browser",

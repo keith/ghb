@@ -84,9 +84,12 @@ def commit_from_string(string):
     return values
 
 
-def pr_message():
-    file_path = pr_message_file()
+def pr_message(no_edit):
     title, body = last_commit_message()
+    if no_edit:
+        return title, body
+
+    file_path = pr_message_file()
     with open(file_path, "w") as f:
         f.write(title + "\n\n" + body + "\n")
         f.write("\n# The first line will be the title of the PR")
@@ -130,7 +133,7 @@ def main(args):
     if remote == "-":
         remote = _get_last_branch()
 
-    text, body = pr_message()
+    text, body = pr_message(args.no_edit)
     username, password = credentials.credentials(NETRC_MACHINE)
     local = current_branch_name()
     if local.split(":")[-1] == remote:
