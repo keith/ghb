@@ -1,3 +1,5 @@
 *.pyc
 .ropeproject
+build/
+dist/
 ghb.egg-info
