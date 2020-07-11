@@ -6,6 +6,7 @@ from . import __version__
 from . import approve
 from . import assignme
 from . import block
+from . import comment
 from . import clear_comments
 from . import contributions
 from . import create
@@ -51,6 +52,16 @@ def _build_parser():
         "unblock", help="unblock a given user"
     )
     unblock_parser.add_argument("user", help="the user to unblock")
+
+    comment_parser = subparsers.add_parser(
+        "comment", help="Comment on PRs / issues"
+    )
+    comment_parser.add_argument("body", help="the comment body")
+    comment_parser.add_argument(
+        "issues",
+        nargs="+",
+        help="the list of issues / PRs to comment on, start with @ to use a file list",
+    )
 
     clear_comments_parser = subparsers.add_parser(
         "clear-comments", help="Delete all comments on a PR"
@@ -204,6 +215,7 @@ def main():
         "assignme": assignme.main,
         "block": block.main,
         "clear-comments": clear_comments.main,
+        "comment": comment.main,
         "contributions": contributions.main,
         "create": create.main,
         "download-release": download_release.main,
