@@ -31,7 +31,7 @@ def _run_git_command(command):
 
 def current_branch_name():
     branch = _run_git_command("symbolic-ref --short HEAD")
-    return "%s:%s" % (repo_username(), branch)
+    return f"{repo_username()}:{branch}"
 
 
 def repo_username():
@@ -100,7 +100,7 @@ def pr_message(no_edit):
     if code != 0:
         sys.exit("Not submitting PR")
 
-    f = open(file_path, "r")
+    f = open(file_path)
     text = f.read()
     f.close()
 

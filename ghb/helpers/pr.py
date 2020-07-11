@@ -9,12 +9,12 @@ REGEX = re.compile(
 def extract_info(pr):
     match = REGEX.match(pr)
     if not match:
-        print("Failed to match '{}'".format(pr))
+        print(f"Failed to match '{pr}'")
         sys.exit(1)
 
     repo, number = match.group(2), match.group(3)
     if not repo or not number:
-        print("Failed to extract repo info from '{}'".format(pr))
+        print(f"Failed to extract repo info from '{pr}'")
         sys.exit(1)
 
     return repo, number

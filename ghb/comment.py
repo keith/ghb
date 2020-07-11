@@ -61,6 +61,4 @@ def main(options: argparse.Namespace) -> None:
                 options.body,
             )
         else:
-            raise SystemExit(
-                "error: could not parse issue URL: {}".format(issue)
-            )
+            raise SystemExit(f"error: could not parse issue URL: {issue}")
