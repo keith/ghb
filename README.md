@@ -11,24 +11,18 @@ allows you to create simple single purpose scripts in any language.
 - [approve](ghb/approve.py), quickly approve a PR with a GitHub review
 - [assignme](ghb/assignme.py), assign yourself to a PR
 - [block](ghb/block.py), block users on GitHub
-- [clear-comments](ghb/clear_comments.py), delete all comments on a pull
-  request
-- [contributions](ghb/contributions.py), view the number of
-  contributions you've made today
+- [clear-comments](ghb/clear_comments.py), delete all comments on a pull request
+- [contributions](ghb/contributions.py), view the number of contributions you've made today
 - [create](ghb/create.py), create github repos.
-- [download-release](ghb/download_release.py), download the most recent
-  release from a repo
+- [download-release](ghb/download_release.py), download the most recent release from a repo
 - [get-blocks](ghb/get_blocks.py), get the users you've blocked
 - [greenify](ghb/greenify.py), force all statuses on a PR to be gren
 - [langs](ghb/langs.py), get the language breakdown for a repo
-- [ls-notifications](ghb/ls_notifications.py), list your unread
-  notifications
+- [ls-notifications](ghb/ls_notifications.py), list your unread notifications
 - [me](ghb/me.py), open your GitHub profile
-- [notifications](ghb/notifications.py), open your unread notifications
-  in the browser
+- [notifications](ghb/notifications.py), open your unread notifications in the browser
 - [pr](ghb/pr.py), open a PR from the current branch
-- [protect](ghb/protect.py), enable/disable branch protection for a
-  specific repo and branch
+- [protect](ghb/protect.py), enable/disable branch protection for a specific repo and branch
 - [unblock](ghb/unblock.py), unblock a GitHub user
 - [unwatch](ghb/unwatch.py), bulk unwatch repos
 - [watch](ghb/watch.py), watch a repo
