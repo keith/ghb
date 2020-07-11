@@ -148,7 +148,8 @@ def main(args):
     )
     response_json = r.json()
     if r.status_code == 201:
-        webbrowser.open_new_tab(response_json["html_url"])
+        if not args.no_open:
+            webbrowser.open_new_tab(response_json["html_url"])
     elif r.status_code == 422:
         open_existing_pr(api_url, local, remote)
     else:

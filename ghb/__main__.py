@@ -139,6 +139,12 @@ def _build_parser():
         default=False,
     )
     pr_parser.add_argument(
+        "--no-open",
+        action="store_true",
+        help="Don't open the PR in the browser",
+        default=False,
+    )
+    pr_parser.add_argument(
         "branch",
         help="The branch to base the PR on",
         nargs="?",
