@@ -9,5 +9,6 @@ This is meant to be a quick guide for how new releases are pushed.
 1. Update the [brew forumla](https://github.com/keith/homebrew-formulae/blob/master/Formula/ghb.rb)
 1. Update the [pypi package](https://pypi.org/project/ghb/1.4.0)
   1. `pip install --upgrade twine setuptools wheel`
+  1. `rm -rf dist`
   1. `python setup.py sdist bdist_wheel`
-  1. `twine upload --repository ghb dist/*`
+  1. `python3 -m twine upload --repository pypi dist/*`
