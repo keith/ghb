@@ -53,7 +53,7 @@ def _build_parser():
     unblock_parser.add_argument("user", help="the user to unblock")
 
     clear_comments_parser = subparsers.add_parser(
-        "clear-comments", help="Protect/Unprotect a branch"
+        "clear-comments", help="Delete all comments on a PR"
     )
     clear_comments_parser.add_argument("repo", help="the user/repo to edit")
     clear_comments_parser.add_argument("pr", help="the PR number to clear")
