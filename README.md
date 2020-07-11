@@ -38,7 +38,7 @@ brew install keith/formulae/ghb
 Or:
 
 ```
-pip install .
+pip install ghb
 ```
 
-(and `zsh/_ghb` if you want zsh completions)
+(and install `zsh/_ghb` if you want zsh completions)
