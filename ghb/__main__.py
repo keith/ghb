@@ -192,7 +192,6 @@ def main():
         "approve": approve.main,
         "assignme": assignme.main,
         "block": block.main,
-        "unblock": unblock.main,
         "clear-comments": clear_comments.main,
         "contributions": contributions.main,
         "create": create.main,
@@ -205,6 +204,7 @@ def main():
         "notifications": notifications.main,
         "pr": pr.main,
         "protect": protect.main,
+        "unblock": unblock.main,
         "unwatch": unwatch.main,
         "watch": watch.main,
     }
