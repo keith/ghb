@@ -163,8 +163,7 @@ def _build_parser():
     unwatch_parser.add_argument(
         "-u",
         "--users",
-        help="comma separated valid users. "
-        "Repos from these users are never unwatched",
+        help="comma separated valid users. Repos from these users are never unwatched",
         default="",
     )
     unwatch_parser.add_argument(
