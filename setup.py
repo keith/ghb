@@ -1,5 +1,6 @@
-import setuptools
 import pathlib
+
+import setuptools
 
 import ghb
 
