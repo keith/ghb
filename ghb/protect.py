@@ -51,4 +51,4 @@ def main(args):
         print("Success")
     else:
         # Currently not sure about what errors can be produced
-        print("Error. HTTP Code: %s JSON: %s" % (r.status_code, r.json()))
+        print(f"Error. HTTP Code: {r.status_code} JSON: {r.json()}")

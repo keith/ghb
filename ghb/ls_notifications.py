@@ -25,7 +25,7 @@ def main(_):
             .replace("/repos", "", 1)
             .replace("/pulls/", "/pull/")
         )
-        notification = "\t%s (%s)" % (blob["subject"]["title"], html_url)
+        notification = "\t{} ({})".format(blob["subject"]["title"], html_url)
         notifications.setdefault(repo_name, []).append(notification)
 
     for name, urls in notifications.items():

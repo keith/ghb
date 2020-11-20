@@ -33,4 +33,4 @@ def main(args):
         averages.items(), key=operator.itemgetter(1), reverse=True
     )
     for t in averages:
-        print("%15s: %8.2f%%" % (t[0], t[1]))
+        print("{:>15}: {:8.2f}%".format(t[0], t[1]))

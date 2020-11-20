@@ -38,5 +38,7 @@ def main(_):
     number = d["data-count"]
     date = d["data-date"]
     print(
-        "You have %s contribution%s on %s" % (number, pluralize(number), date)
+        "You have {} contribution{} on {}".format(
+            number, pluralize(number), date
+        )
     )
