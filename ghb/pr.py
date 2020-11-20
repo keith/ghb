@@ -76,6 +76,18 @@ def _get_last_branch():
     return _run_git_command("rev-parse --abbrev-ref @{-1}")
 
 
+def _get_main_branch():
+    try:
+        subprocess.check_call(
+            ["git", "show", "origin/main"],
+            stdout=open("/dev/null"),
+            stderr=open("/dev/null"),
+        )
+        return "main"
+    except subprocess.CalledProcessError:
+        return "master"
+
+
 def commit_from_string(string):
     values = [x.strip() for x in string.split("\n", 1)]
     if len(values) < 2:
@@ -131,6 +143,8 @@ def main(args):
     remote = args.branch
     if remote == "-":
         remote = _get_last_branch()
+    elif not remote:
+        remote = _get_main_branch()
 
     text, body = pr_message(args.no_edit)
     username, password = credentials.credentials(NETRC_MACHINE)

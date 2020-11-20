@@ -162,10 +162,7 @@ def _build_parser():
         default=False,
     )
     pr_parser.add_argument(
-        "branch",
-        help="The branch to base the PR on",
-        nargs="?",
-        default="master",
+        "branch", help="The branch to base the PR on", nargs="?",
     )
 
     unwatch_parser = subparsers.add_parser(
