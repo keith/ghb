@@ -2,7 +2,6 @@
 # Adds an approval PR review to a pull request
 # Usage: ghb approve PR_URL
 #
-
 import json
 import sys
 

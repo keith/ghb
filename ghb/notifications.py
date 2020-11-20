@@ -2,7 +2,6 @@
 # Open your unread GitHub notifications in new tabs
 # Usage: ghb notifications
 #
-
 import sys
 import webbrowser
 

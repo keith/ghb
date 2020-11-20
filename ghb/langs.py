@@ -2,7 +2,6 @@
 # Get the language breakdown for a repo
 # Usage: ghb langs USER/REPO
 #
-
 import operator
 import sys
 

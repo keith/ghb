@@ -3,7 +3,6 @@
 # Note: your token needs 'user' access for this API
 # Usage: ghb get-blocks
 #
-
 import sys
 
 import requests

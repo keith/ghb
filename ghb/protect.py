@@ -7,7 +7,6 @@
 #
 # Note: Requiring administrators to go through protection is currently hardcoded
 #
-
 import json
 
 import requests

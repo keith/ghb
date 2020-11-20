@@ -6,8 +6,8 @@ from . import __version__
 from . import approve
 from . import assignme
 from . import block
-from . import comment
 from . import clear_comments
+from . import comment
 from . import contributions
 from . import create
 from . import download_release

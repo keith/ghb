@@ -7,7 +7,6 @@
 # ghb pr # This opens a PR against master
 # ghb pr some-branch # This opens the PR against 'some-branch'
 #
-
 import json
 import os.path
 import subprocess

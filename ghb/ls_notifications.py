@@ -2,7 +2,6 @@
 # List your unread GitHub notifications
 # Usage: ghb ls-notifications
 #
-
 import requests
 
 from .helpers import credentials

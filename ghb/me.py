@@ -2,7 +2,6 @@
 # Open your GitHub profile
 # Usage: ghb me
 #
-
 import webbrowser
 
 from .helpers import credentials

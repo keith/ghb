@@ -7,7 +7,6 @@
 #                        [--no-issues disable issues]
 #                        [--no-downloads disable downloads]
 #
-
 import json
 import webbrowser
 

@@ -2,7 +2,6 @@
 # Assigns the currently authorized user to a pull request
 # Usage: ghb assignme PR_URL
 #
-
 import json
 import sys
 

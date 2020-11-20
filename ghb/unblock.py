@@ -3,7 +3,6 @@
 # Note: your token needs 'user' access for this API
 # Usage: ghb unblock USER
 #
-
 import sys
 
 import requests
