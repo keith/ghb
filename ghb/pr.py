@@ -80,8 +80,8 @@ def _get_main_branch():
     try:
         subprocess.check_call(
             ["git", "show", "origin/main"],
-            stdout=open("/dev/null"),
-            stderr=open("/dev/null"),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
         return "main"
     except subprocess.CalledProcessError:
