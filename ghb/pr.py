@@ -128,7 +128,12 @@ def pr_message(no_edit):
 """
         )
 
-    command = 'vim -c "set ft=gitcommit" %s' % file_path
+    editor = os.getenv("EDITOR") or "vim"
+    if "vi" in editor:
+        command = f"{editor} -c 'set ft=gitcommit' '{file_path}'"
+    else:
+        command = f"{editor} '{file_path}'"
+
     code = os.system(command)
     if code != 0:
         sys.exit("Not submitting PR")
