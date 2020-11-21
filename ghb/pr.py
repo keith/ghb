@@ -88,6 +88,20 @@ def _get_main_branch():
         return "master"
 
 
+def _get_comment_char():
+    try:
+        return (
+            subprocess.check_output(
+                ["git", "config", "core.commentChar"],
+                stderr=subprocess.DEVNULL,
+            )
+            .strip()
+            .decode("utf-8")
+        )
+    except subprocess.CalledProcessError:
+        return "#"
+
+
 def commit_from_string(string):
     values = [x.strip() for x in string.split("\n", 1)]
     if len(values) < 2:
@@ -101,10 +115,18 @@ def pr_message(no_edit):
         return title, body
 
     file_path = pr_message_file()
+
+    comment_char = _get_comment_char()
     with open(file_path, "w") as f:
-        f.write(title + "\n\n" + body + "\n")
-        f.write("\n# The first line will be the title of the PR")
-        f.write("\n# Anything below the first line will be the body\n")
+        f.write(
+            f"""{title}
+
+{body}
+
+{comment_char} The first line will be the title of the PR
+{comment_char} Anything below the first line will be the body
+"""
+        )
 
     command = 'vim -c "set ft=gitcommit" %s' % file_path
     code = os.system(command)
@@ -116,7 +138,7 @@ def pr_message(no_edit):
     f.close()
 
     lines = text.split("\n")
-    lines = [x for x in lines if not x.startswith("#")]
+    lines = [x for x in lines if not x.startswith(comment_char)]
     text = "\n".join(lines)
     if not text.strip():
         sys.exit("Not submitting with empty message")
