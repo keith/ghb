@@ -166,6 +166,14 @@ def open_existing_pr(api_url, local, remote):
         webbrowser.open_new_tab(pr["html_url"])
 
 
+def _has_unrecoverable_error(error_json):
+    errors = error_json["errors"]
+    if any(error.get("code") == "invalid" for error in errors):
+        return True
+
+    return False
+
+
 def main(args):
     remote = args.branch
     if remote == "-":
@@ -194,7 +202,10 @@ def main(args):
         if not args.no_open:
             webbrowser.open_new_tab(response_json["html_url"])
     elif r.status_code == 422:
-        open_existing_pr(api_url, local, remote)
+        if _has_unrecoverable_error(r.json()):
+            print(f"error: failed to create PR: {r.json()}")
+        else:
+            open_existing_pr(api_url, local, remote)
     else:
         error_message = response_json["errors"][0]["message"]
         print(error_message)
