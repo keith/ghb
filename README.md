@@ -15,6 +15,7 @@ allows you to create simple single purpose scripts in any language.
 - [comment](ghb/comment.py), comment on a list of issues / PRs
 - [contributions](ghb/contributions.py), view the number of contributions you've made today
 - [create](ghb/create.py), create github repos.
+- [delete-branches](ghb/delete_branches.py), delete stale branches matching some prefix
 - [download-release](ghb/download_release.py), download the most recent release from a repo
 - [get-blocks](ghb/get_blocks.py), get the users you've blocked
 - [greenify](ghb/greenify.py), force all statuses on a PR to be gren
