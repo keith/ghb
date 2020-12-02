@@ -10,6 +10,7 @@ from . import clear_comments
 from . import comment
 from . import contributions
 from . import create
+from . import delete_branches
 from . import download_release
 from . import get_blocks
 from . import greenify
@@ -185,6 +186,18 @@ def _build_parser():
     watch_parser = subparsers.add_parser("watch", help="Watch GitHub repos")
     watch_parser.add_argument("repo", help="the user/repo to watch")
 
+    delete_branches_parser = subparsers.add_parser(
+        "delete-branches", help="Delete branches without open PRs"
+    )
+    delete_branches_parser.add_argument(
+        "repo", help="The repo to get open PRs from, ex: keith/ghb",
+    )
+    delete_branches_parser.add_argument(
+        "branch_prefixes",
+        nargs="+",
+        help="The prefixes of the branches to delete, ex: ci-pr-",
+    )
+
     subparsers.add_parser(
         "contributions", help="Get your contribution count for today"
     )
@@ -215,6 +228,7 @@ def main():
         "comment": comment.main,
         "contributions": contributions.main,
         "create": create.main,
+        "delete-branches": delete_branches.main,
         "download-release": download_release.main,
         "get-blocks": get_blocks.main,
         "greenify": greenify.main,
