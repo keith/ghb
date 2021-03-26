@@ -7,6 +7,7 @@ from . import approve
 from . import assignme
 from . import block
 from . import clear_comments
+from . import close_prs
 from . import comment
 from . import contributions
 from . import create
@@ -215,6 +216,19 @@ def _build_parser():
     )
     greenify_parser.add_argument("repo", help="the user/repo to edit")
     greenify_parser.add_argument("sha", help="the sha with the statuses")
+
+    close_prs_parser = subparsers.add_parser(
+        "close-prs", help="Bulk close pull requests matching criteria"
+    )
+    close_prs_parser.add_argument(
+        "repo", help="The GitHub repo, ex: owner/repo"
+    )
+    close_prs_parser.add_argument(
+        "author", help="The GitHub username of the PR author, ex: keith"
+    )
+    close_prs_parser.add_argument(
+        "base", help="The base branch the PRs are targeting, ex: main"
+    )
     return parser
 
 
@@ -225,6 +239,7 @@ def main():
         "assignme": assignme.main,
         "block": block.main,
         "clear-comments": clear_comments.main,
+        "close-prs": close_prs.main,
         "comment": comment.main,
         "contributions": contributions.main,
         "create": create.main,
