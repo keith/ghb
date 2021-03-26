@@ -207,5 +207,9 @@ def main(args):
         else:
             open_existing_pr(api_url, local, remote)
     else:
-        error_message = response_json["errors"][0]["message"]
-        print(error_message)
+        try:
+            error_message = response_json["errors"][0]["message"]
+            print(error_message)
+        except KeyError:
+            print(response_json)
+            raise
