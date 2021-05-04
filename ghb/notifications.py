@@ -10,11 +10,10 @@ import requests
 from .helpers import credentials
 
 URL = "https://api.github.com/notifications"
-NETRC_MACHINE = "api.github.com"
 
 
 def main(_):
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     r = requests.get(URL, auth=(user, password))
     opened = False
 

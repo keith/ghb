@@ -10,7 +10,6 @@ import requests
 from .helpers import credentials
 
 URL = "https://api.github.com/repos/%s/languages"
-NETRC_MACHINE = "api.github.com"
 
 
 def average(total, number):
@@ -18,7 +17,7 @@ def average(total, number):
 
 
 def main(args):
-    username, password = credentials.credentials(NETRC_MACHINE)
+    username, password = credentials.credentials()
     headers = {"Accept": "application/vnd.github.v3+json"}
     r = requests.get(
         URL % args.repo, auth=(username, password), headers=headers

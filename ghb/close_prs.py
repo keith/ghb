@@ -5,24 +5,21 @@
 #
 # Usage: ghb close-prs author base
 #
-
-from typing import Set
 import argparse
 import json
 import sys
+from typing import Set
 
 import requests
 
 from .helpers import credentials
 
 
-NETRC_MACHINE = "api.github.com"
-
-
-def _get_open_prs(repo: str, author: str, base: str) -> Set[str]:
+def _get_open_prs(
+    user: str, password: str, repo: str, author: str, base: str
+) -> Set[str]:
     params = {"state": "open", "per_page": "100", "base": base}
     url = f"https://api.github.com/repos/{repo}/pulls"
-    user, password = credentials.credentials(NETRC_MACHINE)
     urls = set()
     while url:
         response = requests.get(url, auth=(user, password), params=params)
@@ -41,8 +38,8 @@ def _get_open_prs(repo: str, author: str, base: str) -> Set[str]:
 
 
 def main(args: argparse.Namespace) -> None:
-    user, password = credentials.credentials(NETRC_MACHINE)
-    open_prs = _get_open_prs(args.repo, args.author, args.base)
+    user, password = credentials.credentials()
+    open_prs = _get_open_prs(user, password, args.repo, args.author, args.base)
     data = json.dumps({"state": "closed"})
     failed = False
     for pr_url in open_prs:

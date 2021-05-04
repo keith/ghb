@@ -15,11 +15,10 @@ import requests
 from .helpers import credentials
 
 URL = "https://api.github.com/user/repos"
-NETRC_MACHINE = "api.github.com"
 
 
 def main(args):
-    username, password = credentials.credentials(NETRC_MACHINE)
+    username, password = credentials.credentials()
     headers = {"Accept": "application/vnd.github.v3+json"}
     payload = json.dumps(vars(args))
     r = requests.post(

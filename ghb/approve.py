@@ -10,14 +10,13 @@ import requests
 from .helpers import credentials
 from .helpers import pr
 
-NETRC_MACHINE = "api.github.com"
 URL = "https://api.github.com/repos/%s/pulls/%s/reviews"
 
 
 def main(args):
     pull_request = args.pr
     repo, number = pr.extract_info(pull_request)
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     params = {"event": "APPROVE"}
     headers = {"Accept": "application/vnd.github.black-cat-preview+json"}
     response = requests.post(

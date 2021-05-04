@@ -14,11 +14,10 @@ _STATUS_URL = "https://api.github.com/repos/{}/statuses/{}"
 _GET_STATUS_URL = (
     "https://api.github.com/repos/{}/commits/{}/status?per_page=100"
 )
-NETRC_MACHINE = "api.github.com"
 
 
 def main(args):
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     response = requests.get(
         _GET_STATUS_URL.format(args.repo, args.sha), auth=(user, password)
     )

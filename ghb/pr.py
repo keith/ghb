@@ -18,7 +18,6 @@ import requests
 from .helpers import credentials
 
 URL = "https://api.github.com/repos/%s/pulls"
-NETRC_MACHINE = "api.github.com"
 HEADERS = {"Accept": "application/vnd.github.shadow-cat-preview+json"}
 
 
@@ -151,9 +150,8 @@ def pr_message(no_edit):
     return commit_from_string(text)
 
 
-def open_existing_pr(api_url, local, remote):
+def open_existing_pr(username, password, api_url, local, remote):
     print("Opening existing PR")
-    username, password = credentials.credentials(NETRC_MACHINE)
     payload = {"head": local, "base": remote}
     r = requests.get(
         api_url,
@@ -182,7 +180,7 @@ def main(args):
         remote = _get_main_branch()
 
     text, body = pr_message(args.no_edit)
-    username, password = credentials.credentials(NETRC_MACHINE)
+    username, password = credentials.credentials()
     local = current_branch_name()
     if local.split(":")[-1] == remote:
         sys.exit("Cannot submit PR from the same branch")
@@ -205,7 +203,7 @@ def main(args):
         if _has_unrecoverable_error(r.json()):
             print(f"error: failed to create PR: {r.json()}")
         else:
-            open_existing_pr(api_url, local, remote)
+            open_existing_pr(username, password, api_url, local, remote)
     else:
         try:
             error_message = response_json["errors"][0]["message"]

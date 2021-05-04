@@ -16,7 +16,6 @@ from .helpers import credentials
 WATCHING = "https://api.github.com/user/subscriptions?page=%s&per_page=100"
 UNWATCH = "https://api.github.com/repos/%s/subscription"
 HTML_URL = "https://github.com/%s"
-NETRC_MACHINE = "api.github.com"
 
 
 def ask(repo):
@@ -41,7 +40,7 @@ def is_valid_user(repo, valid_users):
 def main(args):
     valid_users = [x.lower() for x in args.users.split(",")]
     ignored_repos = [x.lower() for x in args.ignored.split(",")]
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     json = []
     count = 1
     while True:
