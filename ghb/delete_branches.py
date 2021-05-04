@@ -13,12 +13,9 @@ import requests
 from .helpers import credentials
 
 
-NETRC_MACHINE = "api.github.com"
-
-
 def _get_open_pr_branches(repo: str) -> Set[str]:
     url = f"https://api.github.com/repos/{repo}/pulls"
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     branches = set()
     while url:
         response = requests.get(url, auth=(user, password))

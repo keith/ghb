@@ -15,7 +15,6 @@ from .helpers import credentials
 
 
 URL = "https://api.github.com/repos/%s/branches/%s"
-NETRC_MACHINE = "api.github.com"
 
 
 def url_from_options(options):
@@ -37,7 +36,7 @@ def data_for_options(options):
 
 def main(args):
     options = vars(args)
-    username, password = credentials.credentials(NETRC_MACHINE)
+    username, password = credentials.credentials()
     headers = {"Accept": "application/vnd.github.loki-preview"}
     payload = json.dumps(data_for_options(options))
     r = requests.patch(

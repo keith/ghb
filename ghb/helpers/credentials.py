@@ -1,17 +1,36 @@
 import netrc
-import sys
+from typing import Tuple
+
+_MACHINE = "api.github.com"
+_EXAMPLE_CONTENTS = f"""\
+machine {_MACHINE}
+  login GITHUB_USERNAME
+  password GITHUB_API_TOKEN # Generate from https://github.com/settings/tokens
+"""
 
 
-def credentials(machine):
-    n = netrc.netrc()
-    auth = n.authenticators(machine)
-    if auth is None:
-        sys.exit("Add %s to your ~/.netrc" % machine)
+def credentials() -> Tuple[str, str]:
+    try:
+        n = netrc.netrc()
+    except FileNotFoundError:
+        raise SystemExit(
+            f"error: ~/.netrc not found, create one with these contents:\n\n{_EXAMPLE_CONTENTS}"
+        )
+    except netrc.NetrcParseError:
+        raise SystemExit(
+            f"error: ~/.netrc has invalid contents, you need something like this:\n\n{_EXAMPLE_CONTENTS}"
+        )
+
+    auth = n.authenticators(_MACHINE)
+    if not auth:
+        raise SystemExit(
+            f"error: add {_MACHINE} like this:\n\n{_EXAMPLE_CONTENTS}"
+        )
 
     user = auth[0] or auth[1]
     password = auth[2]
 
     if user is None or password is None:
-        sys.exit("Invalid netrc entry for %s" % machine)
+        raise SystemExit(f"error: invalid netrc entry for {_MACHINE}")
 
     return user, password

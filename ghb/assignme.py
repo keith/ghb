@@ -10,13 +10,12 @@ import requests
 from .helpers import credentials
 from .helpers import pr
 
-NETRC_MACHINE = "api.github.com"
 URL = "https://api.github.com/repos/%s/issues/%s/assignees"
 
 
 def main(args):
     repo, number = pr.extract_info(args.pr)
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     headers = {"Accept": "application/vnd.github.v3+json"}
     params = {"assignees": [user]}
     response = requests.post(

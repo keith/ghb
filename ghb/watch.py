@@ -11,7 +11,6 @@ import requests
 from .helpers import credentials
 
 WATCH = "https://api.github.com/repos/%s/subscription"
-NETRC_MACHINE = "api.github.com"
 
 
 def main(args):
@@ -21,7 +20,7 @@ def main(args):
         print("'%s' is not in the format 'user/repo'" % repo)
         sys.exit(1)
 
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     url = WATCH % repo
     body = json.dumps({"subscribed": True})
     r = requests.put(url, data=body, auth=(user, password))

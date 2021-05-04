@@ -10,12 +10,11 @@ import requests
 from .helpers import credentials
 
 BLOCK_URL = "https://api.github.com/user/blocks/%s"
-NETRC_MACHINE = "api.github.com"
 
 
 def main(args):
     block_user = args.user
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     headers = {
         "Accept": "application/vnd.github.giant-sentry-fist-preview+json"
     }

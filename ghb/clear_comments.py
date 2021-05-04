@@ -12,13 +12,12 @@ PULLS_URL = "https://api.github.com/repos/%s/pulls/%s/comments"
 PULLS_DELETE_URL = "https://api.github.com/repos/%s/pulls/comments/%s"
 ISSUES_URL = "https://api.github.com/repos/%s/issues/%s/comments"
 ISSUES_DELETE_URL = "https://api.github.com/repos/%s/issues/comments/%s"
-NETRC_MACHINE = "api.github.com"
 
 
 def main(options):
     repo = options.repo
     pr_number = options.pr
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     headers = {"Accept": "application/vnd.github.v3+json"}
     r = requests.get(
         PULLS_URL % (repo, pr_number), auth=(user, password), headers=headers

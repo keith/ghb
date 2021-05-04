@@ -9,7 +9,6 @@ import requests
 from .helpers import credentials
 
 URL = "https://github.com/users/%s/contributions"
-NETRC_MACHINE = "github.com"
 
 
 class CustomHTMLParser(html.parser.HTMLParser):
@@ -29,7 +28,7 @@ def pluralize(number):
 
 
 def main(_):
-    username, _ = credentials.credentials(NETRC_MACHINE)
+    username, _ = credentials.credentials()
     r = requests.get(URL % username)
     parser = CustomHTMLParser()
     parser.feed(r.text)

@@ -18,11 +18,8 @@ _ISSUE_RE = re.compile(
 )
 
 
-NETRC_MACHINE = "api.github.com"
-
-
 def _comment(owner: str, repo: str, number: str, body: str) -> None:
-    user, password = credentials.credentials(NETRC_MACHINE)
+    user, password = credentials.credentials()
     url = (
         f"https://api.github.com/repos/{owner}/{repo}/issues/{number}/comments"
     )
