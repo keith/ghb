@@ -12,6 +12,7 @@ allows you to create simple single purpose scripts in any language.
 - [assignme](ghb/assignme.py), assign yourself to a PR
 - [block](ghb/block.py), block users on GitHub
 - [clear-comments](ghb/clear_comments.py), delete all comments on a pull request
+- [close-prs](ghb/close_prs.py), close multiple PRs from a certain author targeting a specific branch
 - [comment](ghb/comment.py), comment on a list of issues / PRs
 - [contributions](ghb/contributions.py), view the number of contributions you've made today
 - [create](ghb/create.py), create github repos.
