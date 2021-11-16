@@ -8,9 +8,9 @@ import requests
 
 from .helpers import credentials
 
-PULLS_URL = "https://api.github.com/repos/%s/pulls/%s/comments"
+PULLS_URL = "https://api.github.com/repos/%s/pulls/%s/comments?per_page=100"
 PULLS_DELETE_URL = "https://api.github.com/repos/%s/pulls/comments/%s"
-ISSUES_URL = "https://api.github.com/repos/%s/issues/%s/comments"
+ISSUES_URL = "https://api.github.com/repos/%s/issues/%s/comments?per_page=100"
 ISSUES_DELETE_URL = "https://api.github.com/repos/%s/issues/comments/%s"
 
 

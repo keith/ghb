@@ -55,7 +55,6 @@ def _delete_branches(branches: List[str]) -> None:
     batch_size = 100
     for i in range(0, len(branches), batch_size):
         batch = branches[i : i + batch_size]
-        # print(deletable_branches)
         subprocess.check_call(["git", "push", "origin", "--delete"] + batch)
 
 
