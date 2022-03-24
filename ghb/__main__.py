@@ -164,7 +164,9 @@ def _build_parser():
         default=False,
     )
     pr_parser.add_argument(
-        "branch", help="The branch to base the PR on", nargs="?",
+        "branch",
+        help="The branch to base the PR on",
+        nargs="?",
     )
 
     unwatch_parser = subparsers.add_parser(
@@ -191,7 +193,8 @@ def _build_parser():
         "delete-branches", help="Delete branches without open PRs"
     )
     delete_branches_parser.add_argument(
-        "repo", help="The repo to get open PRs from, ex: keith/ghb",
+        "repo",
+        help="The repo to get open PRs from, ex: keith/ghb",
     )
     delete_branches_parser.add_argument(
         "branch_prefixes",
