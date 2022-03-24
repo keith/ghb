@@ -230,7 +230,12 @@ def _build_parser():
         "author", help="The GitHub username of the PR author, ex: keith"
     )
     close_prs_parser.add_argument(
-        "base", help="The base branch the PRs are targeting, ex: main"
+        "--base", help="The base branch the PRs are targeting, ex: main"
+    )
+    close_prs_parser.add_argument(
+        "--older-than-weeks",
+        help="Close PRs older than the given date in weeks",
+        type=int,
     )
     return parser
 
