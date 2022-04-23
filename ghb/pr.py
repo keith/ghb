@@ -8,7 +8,7 @@
 # ghb pr some-branch # This opens the PR against 'some-branch'
 #
 import json
-import os.path
+import os
 import subprocess
 import sys
 import webbrowser
@@ -137,9 +137,8 @@ def pr_message(no_edit):
     if code != 0:
         sys.exit("Not submitting PR")
 
-    f = open(file_path)
-    text = f.read()
-    f.close()
+    with open(file_path) as f:
+        text = f.read()
 
     lines = text.split("\n")
     lines = [x for x in lines if not x.startswith(comment_char)]
@@ -179,13 +178,13 @@ def main(args):
     elif not remote:
         remote = _get_main_branch()
 
-    text, body = pr_message(args.no_edit)
+    title, body = pr_message(args.no_edit)
     username, password = credentials.credentials()
     local = current_branch_name()
     if local.split(":")[-1] == remote:
         sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
-    payload = {"title": text, "body": body, "base": remote, "head": local}
+    payload = {"title": title, "body": body, "base": remote, "head": local}
     if args.draft:
         payload["draft"] = True
 
