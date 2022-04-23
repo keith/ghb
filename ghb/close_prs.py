@@ -7,11 +7,12 @@
 #
 import argparse
 import datetime
-import json
 import itertools
+import json
 import sys
 from concurrent import futures
-from typing import Optional, Set
+from typing import Optional
+from typing import Set
 
 import requests
 
