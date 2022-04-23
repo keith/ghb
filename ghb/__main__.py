@@ -164,6 +164,18 @@ def _build_parser():
         default=False,
     )
     pr_parser.add_argument(
+        "--merge",
+        action="store_true",
+        help="Enable auto-merge on the PR (rebase mode)",
+        default=False,
+    )
+    pr_parser.add_argument(
+        "--merge-squash",
+        action="store_true",
+        help="Enable auto-merge on the PR (squash mode using initial commit message)",
+        default=False,
+    )
+    pr_parser.add_argument(
         "branch",
         help="The branch to base the PR on",
         nargs="?",

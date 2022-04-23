@@ -171,6 +171,47 @@ def _has_unrecoverable_error(error_json):
     return False
 
 
+def _enable_automerge(
+    pr_id: str,
+    squash: bool,
+    title: str,
+    body: str,
+    username: str,
+    password: str,
+) -> None:
+    input_str = f"""{{
+        pullRequestId: "{pr_id}",
+        mergeMethod: REBASE
+    }}"""
+    if squash:
+        input_str = f"""{{
+          commitBody: "{body}",
+          commitHeadline: "{title}",
+          pullRequestId: "{pr_id}",
+          mergeMethod: SQUASH
+      }}"""
+    r = requests.post(
+        "https://api.github.com/graphql",
+        auth=(username, password),
+        data=json.dumps(
+            {
+                "query": f"""mutation EnableAutoMerge {{
+    enablePullRequestAutoMerge(input: {input_str}) {{
+      actor {{
+        login
+      }}
+    }}
+  }}"""
+            }
+        ),
+    )
+
+    r.raise_for_status()
+    errors = r.json().get("errors")
+    if errors:
+        raise SystemExit(errors)
+
+
 def main(args):
     remote = args.branch
     if remote == "-":
@@ -185,7 +226,7 @@ def main(args):
         sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
     payload = {"title": title, "body": body, "base": remote, "head": local}
-    if args.draft:
+    if args.draft and not (args.merge or args.merge_squash):
         payload["draft"] = True
 
     r = requests.post(
@@ -198,6 +239,16 @@ def main(args):
     if r.status_code == 201:
         if not args.no_open:
             webbrowser.open_new_tab(response_json["html_url"])
+
+        if args.merge or args.merge_squash:
+            _enable_automerge(
+                response_json["node_id"],
+                args.merge_squash,
+                title,
+                body,
+                username,
+                password,
+            )
     elif r.status_code == 422:
         if _has_unrecoverable_error(r.json()):
             print(f"error: failed to create PR: {r.json()}")
