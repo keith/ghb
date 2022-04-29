@@ -1,7 +1,6 @@
 #
-# Unblock a github user
-# Note: your token needs 'user' access for this API
-# Usage: ghb unblock USER
+# Mark all non-successful statuses on a commit as successful
+# Usage: ghb greenify owner/repo sha
 #
 import json
 import sys
@@ -10,7 +9,6 @@ import requests
 
 from .helpers import credentials
 
-_STATUS_URL = "https://api.github.com/repos/{}/statuses/{}"
 _GET_STATUS_URL = (
     "https://api.github.com/repos/{}/commits/{}/status?per_page=100"
 )
