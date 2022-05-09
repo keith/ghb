@@ -45,3 +45,20 @@ pip install ghb
 ```
 
 (and install `zsh/_ghb` if you want zsh completions)
+
+### Configuration
+
+To setup authentication for `ghb` you must add a personal access token
+to your `~/.netrc` file. You can generate a token
+[here](https://github.com/settings/tokens). You should enable the
+`repo`, `workflow`, `notifications`, and `user` scopes (you maybe be
+able to omit some of those depending on which subcommands you plan to
+use).
+
+Then in your `~/.netrc` file add:
+
+```
+machine api.github.com
+login GITHUB_USERNAME
+password TOKEN
+```
