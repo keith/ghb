@@ -18,6 +18,8 @@ def main(_):
     for blob in r.json():
         repo_name = blob["repository"]["full_name"]
         api_url = blob["subject"]["url"]
+        if not api_url:
+            continue
         html_url = (
             api_url.replace("api.", "", 1)
             .replace("/repos", "", 1)
