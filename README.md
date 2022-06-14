@@ -62,3 +62,5 @@ machine api.github.com
 login GITHUB_USERNAME
 password TOKEN
 ```
+
+And restrict permissions with `chmod 0600 ~/.netrc` (this is required)

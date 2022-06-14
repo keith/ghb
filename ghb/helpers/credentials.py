@@ -16,7 +16,11 @@ def credentials() -> Tuple[str, str]:
         raise SystemExit(
             f"error: ~/.netrc not found, create one with these contents:\n\n{_EXAMPLE_CONTENTS}"
         )
-    except netrc.NetrcParseError:
+    except netrc.NetrcParseError as e:
+        if "too permissive" in e.msg:
+            raise SystemExit(
+                f"error: ~/.netrc is too permissive, run 'chmod 600 ~/.netrc'"
+            )
         raise SystemExit(
             f"error: ~/.netrc has invalid contents, you need something like this:\n\n{_EXAMPLE_CONTENTS}"
         )
