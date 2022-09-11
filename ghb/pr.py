@@ -225,7 +225,7 @@ def main(args):
         sys.exit("Cannot submit PR from the same branch")
     api_url = URL % repo_with_username()
     payload = {"title": title, "body": body, "base": remote, "head": local}
-    if args.draft and not (args.merge or args.merge_squash):
+    if args.draft and not (args.merge_rebase or args.merge_squash):
         payload["draft"] = True
 
     r = requests.post(
@@ -239,7 +239,7 @@ def main(args):
         if not args.no_open:
             webbrowser.open_new_tab(response_json["html_url"])
 
-        if args.merge or args.merge_squash:
+        if args.merge_squash or args.merge_squash:
             _enable_automerge(
                 response_json["node_id"],
                 args.merge_squash,
