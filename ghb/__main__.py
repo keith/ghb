@@ -164,7 +164,7 @@ def _build_parser():
         default=False,
     )
     pr_parser.add_argument(
-        "--merge",
+        "--merge-rebase",
         action="store_true",
         help="Enable auto-merge on the PR (rebase mode)",
         default=False,
