@@ -206,10 +206,9 @@ def _enable_automerge(
         ),
     )
 
-    r.raise_for_status()
     errors = r.json().get("errors")
-    if errors:
-        raise SystemExit(errors)
+    if r.status_code > 399 or errors:
+        print(f"warning: filed to enable automerge: {errors}", file=sys.stderr)
 
 
 def main(args):
