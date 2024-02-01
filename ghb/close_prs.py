@@ -10,6 +10,7 @@ import datetime
 import itertools
 import json
 import sys
+import time
 from concurrent import futures
 from typing import Optional
 from typing import Set
@@ -39,7 +40,17 @@ def _get_open_prs(
     urls = set()
     while url:
         response = requests.get(url, auth=(user, password), params=params)
-        if response.status_code != 200:
+        if response.status_code == 403:
+            try:
+                reset = int(response.headers["X-RateLimit-Reset"])
+                now = int(datetime.datetime.utcnow().strftime("%s"))
+                sleep = reset - now
+                print(f"sleeping for {sleep} seconds")
+                time.sleep(sleep)
+                continue
+            except KeyError:
+                print(response.headers)
+        elif response.status_code != 200:
             raise SystemExit(f"error: failed to fetch PRs: {response.text}")
 
         for pr in response.json():
@@ -69,7 +80,22 @@ def _close_pr(arg):
     pr_url, auth = arg
     data = json.dumps({"state": "closed"})
     response = requests.patch(pr_url, auth=auth, data=data)
-    return response.status_code, pr_url
+    if response.status_code == 403:
+        after = response.headers.get("Retry-After")
+        if after is not None:
+            print(f"sleeping for {after} seconds")
+            time.sleep(int(after))
+        else:
+            try:
+                reset = int(response.headers["X-RateLimit-Reset"])
+                now = int(datetime.datetime.utcnow().strftime("%s"))
+                sleep = reset - now
+                print(f"sleeping for {sleep} seconds")
+                time.sleep(sleep)
+            except KeyError as e:
+                print(response.headers)
+                raise e
+    return response.status_code, response.json(), response.headers, pr_url
 
 
 def main(args: argparse.Namespace) -> None:
