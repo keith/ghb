@@ -21,6 +21,7 @@ from . import me
 from . import notifications
 from . import pr
 from . import protect
+from . import remove_review_requests
 from . import unblock
 from . import unwatch
 from . import watch
@@ -258,6 +259,18 @@ def _build_parser():
         help="Close PRs older than the given date in weeks",
         type=int,
     )
+
+    remove_request_reviewers_parser = subparsers.add_parser(
+        "remove-review-requests",
+        help="Remove all review requests from a PR",
+    )
+    remove_request_reviewers_parser.add_argument(
+        "repo", help="The GitHub repo, ex: owner/repo"
+    )
+    remove_request_reviewers_parser.add_argument(
+        "pr",
+        help="The PR number to request reviewers on",
+    )
     return parser
 
 
@@ -282,6 +295,7 @@ def main():
         "notifications": notifications.main,
         "pr": pr.main,
         "protect": protect.main,
+        "remove-review-requests": remove_review_requests.main,
         "unblock": unblock.main,
         "unwatch": unwatch.main,
         "watch": watch.main,
