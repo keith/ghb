@@ -4,7 +4,9 @@
 #
 # Usage: ghb delete-branches prefix1 prefix2
 #
+import datetime
 import subprocess
+import time
 from typing import List
 from typing import Set
 
@@ -19,7 +21,15 @@ def _get_open_pr_branches(repo: str) -> Set[str]:
     branches = set()
     while url:
         response = requests.get(url, auth=(user, password))
-        if response.status_code != 200:
+        if response.status_code == 403:
+            reset = int(response.headers["X-RateLimit-Reset"])
+            now = int(datetime.datetime.utcnow().strftime("%s"))
+            sleep = reset - now
+            print(f"sleeping for {sleep} seconds")
+            time.sleep(sleep)
+            continue
+        elif response.status_code != 200:
+            print(response.status_code, response.json(), response.headers)
             raise SystemExit(f"error: failed to fetch PRs: {response.text}")
 
         for pr in response.json():
@@ -56,6 +66,8 @@ def _delete_branches(branches: List[str]) -> None:
     for i in range(0, len(branches), batch_size):
         batch = branches[i : i + batch_size]
         subprocess.check_call(["git", "push", "origin", "--delete"] + batch)
+
+    print(f"Deleted {len(branches)} branches")
 
 
 def main(args) -> None:
