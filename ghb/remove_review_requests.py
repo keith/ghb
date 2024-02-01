@@ -3,7 +3,6 @@
 # Usage: ghb remove-reqview-requests USER/REPO PR_NUMBER
 #
 #
-
 import json
 
 import requests

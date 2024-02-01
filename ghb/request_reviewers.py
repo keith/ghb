@@ -3,7 +3,6 @@
 # Usage: ghb request-reviewers USER/REPO PR_NUM USERS...
 #
 #
-
 import requests
 
 from .helpers import credentials

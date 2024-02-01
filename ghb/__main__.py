@@ -21,8 +21,8 @@ from . import me
 from . import notifications
 from . import pr
 from . import protect
-from . import request_reviewers
 from . import remove_review_requests
+from . import request_reviewers
 from . import unblock
 from . import unwatch
 from . import watch

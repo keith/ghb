@@ -62,7 +62,7 @@ def _get_open_prs(
             if pr["number"] in excluded:
                 continue
             if ignore_label:
-                label_names = set(x["name"] for x in pr.get("labels") or [])
+                label_names = {x["name"] for x in pr.get("labels") or []}
                 if ignore_label in label_names:
                     print("skipping", pr["number"], "due to label")
                     continue
