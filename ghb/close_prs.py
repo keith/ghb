@@ -27,6 +27,8 @@ def _get_open_prs(
     author: str,
     base: Optional[str],
     older_than_weeks: Optional[int],
+    ignore_label: Optional[str],
+    excluded: Set[int],
 ) -> Set[str]:
     if not base and not older_than_weeks:
         raise SystemExit(
@@ -57,6 +59,13 @@ def _get_open_prs(
             if base:
                 assert pr["base"]["ref"] == base
             assert pr["state"] == "open"
+            if pr["number"] in excluded:
+                continue
+            if ignore_label:
+                label_names = set(x["name"] for x in pr.get("labels") or [])
+                if ignore_label in label_names:
+                    print("skipping", pr["number"], "due to label")
+                    continue
 
             if older_than_weeks:
                 reference_date = datetime.datetime.now() - datetime.timedelta(
@@ -107,6 +116,8 @@ def main(args: argparse.Namespace) -> None:
         args.author,
         args.base,
         args.older_than_weeks,
+        args.ignore_label,
+        set(args.exclude or []),
     )
     failed = False
     with futures.ProcessPoolExecutor() as pool:

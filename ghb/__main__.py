@@ -242,7 +242,16 @@ def _build_parser():
         "author", help="The GitHub username of the PR author, ex: keith"
     )
     close_prs_parser.add_argument(
+        "--exclude",
+        action="append",
+        help="The PR numbers that shouldn't be closed even if they match the other criteria",
+        type=int,
+    )
+    close_prs_parser.add_argument(
         "--base", help="The base branch the PRs are targeting, ex: main"
+    )
+    close_prs_parser.add_argument(
+        "--ignore-label", help="Ignore PRs with the given label"
     )
     close_prs_parser.add_argument(
         "--older-than-weeks",
