@@ -110,11 +110,13 @@ def main(args: argparse.Namespace) -> None:
     )
     failed = False
     with futures.ProcessPoolExecutor() as pool:
-        for status_code, pr_url in pool.map(
+        for status_code, response_json, headers, pr_url in pool.map(
             _close_pr, zip(open_prs, itertools.repeat((user, password)))
         ):
             if status_code != 200:
-                print(f"warning: failed to close {pr_url}: {status_code}")
+                print(
+                    f"warning: failed to close {pr_url}: {status_code} {response_json} {headers}"
+                )
                 failed = True
 
     if failed:
