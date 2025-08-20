@@ -12,8 +12,6 @@ import json
 import sys
 import time
 from concurrent import futures
-from typing import Optional
-from typing import Set
 
 import requests
 
@@ -25,11 +23,11 @@ def _get_open_prs(
     password: str,
     repo: str,
     author: str,
-    base: Optional[str],
-    older_than_weeks: Optional[int],
-    ignore_label: Optional[str],
-    excluded: Set[int],
-) -> Set[str]:
+    base: str | None,
+    older_than_weeks: int | None,
+    ignore_label: str | None,
+    excluded: set[int],
+) -> set[str]:
     if not base and not older_than_weeks:
         raise SystemExit(
             "At least one of --base or --older-than must be specified"

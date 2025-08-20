@@ -7,15 +7,13 @@
 import datetime
 import subprocess
 import time
-from typing import List
-from typing import Set
 
 import requests
 
 from .helpers import credentials
 
 
-def _get_open_pr_branches(repo: str) -> Set[str]:
+def _get_open_pr_branches(repo: str) -> set[str]:
     url = f"https://api.github.com/repos/{repo}/pulls"
     user, password = credentials.credentials()
     branches = set()
@@ -40,7 +38,7 @@ def _get_open_pr_branches(repo: str) -> Set[str]:
     return branches
 
 
-def _get_filter_args(prefixes: List[str]) -> List[str]:
+def _get_filter_args(prefixes: list[str]) -> list[str]:
     return [f"origin/{prefix}*" for prefix in prefixes]
 
 
@@ -53,7 +51,7 @@ def _format_local_branch(branch: str) -> str:
     return branch
 
 
-def _get_local_branches(prefixes: List[str]) -> Set[str]:
+def _get_local_branches(prefixes: list[str]) -> set[str]:
     # git branch --remotes --list prefixes
     output = subprocess.check_output(
         ["git", "branch", "--remotes", "--list"] + _get_filter_args(prefixes)
@@ -61,7 +59,7 @@ def _get_local_branches(prefixes: List[str]) -> Set[str]:
     return {_format_local_branch(branch) for branch in output.splitlines()}
 
 
-def _delete_branches(branches: List[str]) -> None:
+def _delete_branches(branches: list[str]) -> None:
     batch_size = 100
     for i in range(0, len(branches), batch_size):
         batch = branches[i : i + batch_size]
