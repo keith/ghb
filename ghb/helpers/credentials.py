@@ -1,5 +1,4 @@
 import netrc
-from typing import Tuple
 
 _MACHINE = "api.github.com"
 _EXAMPLE_CONTENTS = f"""\
@@ -9,7 +8,7 @@ machine {_MACHINE}
 """
 
 
-def credentials() -> Tuple[str, str]:
+def credentials() -> tuple[str, str]:
     try:
         n = netrc.netrc()
     except FileNotFoundError:

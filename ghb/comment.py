@@ -7,7 +7,6 @@
 import argparse
 import json
 import re
-from typing import List
 
 import requests
 
@@ -36,7 +35,7 @@ def _comment(owner: str, repo: str, number: str, body: str) -> None:
     print(f"Commented: {url}")
 
 
-def _issue_urls(issues_arg: List[str]) -> List[str]:
+def _issue_urls(issues_arg: list[str]) -> list[str]:
     urls = []
     for issue in issues_arg:
         if issue.startswith("@"):
