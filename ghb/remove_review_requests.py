@@ -9,7 +9,6 @@ import requests
 
 from .helpers import credentials
 
-
 URL = "https://api.github.com/repos/%s/pulls/%s/requested_reviewers"
 
 

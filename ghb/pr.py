@@ -117,15 +117,13 @@ def pr_message(no_edit):
 
     comment_char = _get_comment_char()
     with open(file_path, "w") as f:
-        f.write(
-            f"""{title}
+        f.write(f"""{title}
 
 {body}
 
 {comment_char} The first line will be the title of the PR
 {comment_char} Anything below the first line will be the body
-"""
-        )
+""")
 
     editor = os.getenv("EDITOR") or "vim"
     if "vi" in editor:
@@ -193,17 +191,13 @@ def _enable_automerge(
     r = requests.post(
         "https://api.github.com/graphql",
         auth=(username, password),
-        data=json.dumps(
-            {
-                "query": f"""mutation EnableAutoMerge {{
+        data=json.dumps({"query": f"""mutation EnableAutoMerge {{
     enablePullRequestAutoMerge(input: {input_str}) {{
       actor {{
         login
       }}
     }}
-  }}"""
-            }
-        ),
+  }}"""}),
     )
 
     errors = r.json().get("errors")
