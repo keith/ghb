@@ -15,6 +15,7 @@ URL = "https://api.github.com/notifications"
 def main(_):
     user, password = credentials.credentials()
     r = requests.get(URL, auth=(user, password))
+    r.raise_for_status()
     opened = False
 
     for blob in r.json():
